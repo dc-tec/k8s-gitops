@@ -11,5 +11,19 @@ These tools can be installed using your favorite package manager. Or consult the
 ## Creating our cluster
 Run the following command to start a 2-node K3D cluster with the name `k3d-gitops` and the default K3S version:
 ```bash
-k3d cluster create k3d-gitops --api-port 6443 -p 8080@loadbalancer --agents 2
+k3d cluster create k3d-gitops --api-port 6443 -p 8080:80@loadbalancer -p 8443:443 --agents 2
+```
+
+## Deploying Cert-Manager
+Run the following coomands to deploy cert-manager:
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
+kubectl apply -f infrastruture/cert-manager/default-cert-issuer.yaml
+kubectl apply -f infrastruture/cert-manager/dct-ca-issuer.yaml
+kubectl apply -f infrastruture/cert-manager/dct-ca-cert.yaml
+```
+
+
+```
+```
 ```
