@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd.dct.infra
+  namespace: argocd
+spec:
+  secretName: argocd-tls
+  dnsNames:
+    - argocd.dct.infra:8443
+    - localhost:8443
+  ipAddresses:
+    - 127.0.0.1
+  issuerRef:
+    name: dct-ca-cl-issuer
+    kind: ClusterIssuer
