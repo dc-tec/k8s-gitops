@@ -13,3 +13,13 @@ resource "libvirt_network" "k8s" {
     enabled = true
   }
 }
+
+resource "libvirt_network" "build_network" {
+  name      = "packer_build_network"
+  mode      = "nat"
+  addresses = ["10.240.0.0/28"]
+
+  dhcp {
+    enabled = true
+  }
+}
