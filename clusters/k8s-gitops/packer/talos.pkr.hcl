@@ -21,6 +21,10 @@ source "qemu" "talos" {
   vm_name = "talos"
   net_device = "virtio-net"
   disk_interface = "virtio"
+  efi_boot = true
+  efi_firmware_code = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
+  efi_firmware_vars = "/run/libvirt/nix-ovmf/OVMF_VARS.fd"
+  firmware = " "
   boot_wait = "20s"
   boot_command = [
     "<enter><wait1m>",
