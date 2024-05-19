@@ -29,3 +29,4 @@ terraform.rc
 
 talosconfig
 kubeconfig
+*.iso
