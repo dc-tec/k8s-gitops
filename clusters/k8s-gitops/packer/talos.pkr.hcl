@@ -10,7 +10,7 @@ packer {
 source "qemu" "talos" {
   iso_url = ".content/alpine-3.19.1.iso"
   iso_checksum = "63e62f5a52cfe73a6cb137ecbb111b7d48356862a1dfe50d8fdd977d727da192"
-  output_directory = "output/talos"
+  output_directory = ".content"
   shutdown_command = "echo 'packer talos build' | doas poweroff"
   disk_size = "15G"
   format = "qcow2"
