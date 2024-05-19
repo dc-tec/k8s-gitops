@@ -8,8 +8,8 @@ packer {
 }
 
 source "qemu" "talos" {
-  iso_url = "https://github.com/siderolabs/talos/releases/download/v1.7.2/metal-arm64.iso"
-  iso_checksum = "3deaf676e7d784388e54ad10b9be8f829f5af2f8c63dd7c72ba9450bd3fdf238"
+  iso_url = ".content/alpine-3.19.1.iso"
+  iso_checksum = "63e62f5a52cfe73a6cb137ecbb111b7d48356862a1dfe50d8fdd977d727da192"
   output_directory = "output/talos"
   shutdown_command = "echo 'packer talos build' | sudo -S shutdown -h now"
   disk_size = "1500G"
@@ -21,20 +21,26 @@ source "qemu" "talos" {
   vm_name = "talos"
   net_device = "virtio-net"
   disk_interface = "virtio"
-  efi_boot = true
-  efi_firmware_code = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
-  efi_firmware_vars = "/run/libvirt/nix-ovmf/OVMF_VARS.fd"
-  firmware = " "
+  memory = 4096
   boot_wait = "20s"
   boot_command = [
     "<enter><wait1m>",
-    "passwd<enter><wait>packer<enter><wait>packer<enter>",
-    "ip address add ${var.static_ip} broadcast + dev enp27s0<enter><wait>",
-    "ip route add 0.0.0.0/0 via ${var.gateway} dev enp27s0<enter><wait>"
+    "root<enter><wait>",
+    "ip address add ${var.static_ip} broadcast + dev eth0<enter><wait>",
+    "ip route add 0.0.0.0/0 via ${var.gateway} dev eth0<enter><wait>",
+    "setup-alpine<enter><wait>"
   ]
 }
 
 build {
   sources = ["source.qemu.talos"]
+
+  provisioner "shell" {
+    inline = [
+      "apk add curl xz",
+      "curl -L ${var.talos_image} -o /tmp/talos.raw.xz",
+      "xz -d -c /tmp/talos.raw.xz | dd of=/dev/sda && sync"
+    ]
+  }
 }
 
