@@ -1,3 +1,15 @@
+variable "kubernetes_version" {
+  description = "The version of kubernetes to use"
+  type        = string
+  default     = "1.30"
+}
+
+variable "talos_version" {
+  description = "The talos version used"
+  type        = string
+  default     = "v1.7.2"
+}
+
 variable "cluster_env" {
   description = "The environment for the kubernetes cluster"
   type        = string
@@ -8,6 +20,11 @@ variable "cluster_domain" {
   type        = string
 }
 
+variable "cluster_name" {
+  description = "The name of the cluster"
+  type        = string
+}
+
 variable "cluster_network_name" {
   description = "The name of the network for the kubernetes cluster"
   type        = string
@@ -15,6 +32,16 @@ variable "cluster_network_name" {
 
 variable "cluster_network" {
   description = "The network address for the kubernetes cluster"
+  type        = string
+}
+
+variable "cluster_vip" {
+  description = "The virtual IP for the kubernetes cluster"
+  type        = string
+}
+
+variable "cluster_endpoint" {
+  description = "The endpoint for the kubernetes cluster"
   type        = string
 }
 
@@ -38,4 +65,10 @@ variable "worker_nodes" {
     node_name  = string
     ip_address = string
   }))
+}
+
+variable "talso_version" {
+  description = "The version of Talos to use"
+  type        = string
+  default     = "v1.7.2"
 }
