@@ -7,17 +7,6 @@ locals {
           port    = 7445
         }
       }
-      kernel = {
-        modules = [
-          {
-            name       = "drdb"
-            parameters = ["usermode_helper=disabled"]
-          },
-          {
-            name = "drdb_transport_tcp"
-          }
-        ]
-      }
     }
     cluster = {
       discovery = {
