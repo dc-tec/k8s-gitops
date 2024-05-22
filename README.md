@@ -1,2 +1,3 @@
-# k3d-gitops
-Local K3D GitOps
+# k8s-gitops
+
+This is my personal Kubernetes GitOps repository
