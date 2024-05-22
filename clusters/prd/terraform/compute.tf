@@ -46,7 +46,7 @@ resource "libvirt_domain" "control_node" {
   network_interface {
     network_id     = libvirt_network.k8s.id
     addresses      = [each.value.ip_address]
-    wait_for_lease = true
+    wait_for_lease = false
   }
 
   video {
@@ -90,7 +90,7 @@ resource "libvirt_domain" "worker_node" {
   network_interface {
     network_id     = libvirt_network.k8s.id
     addresses      = [each.value.ip_address]
-    wait_for_lease = true
+    wait_for_lease = false
   }
 
   video {
