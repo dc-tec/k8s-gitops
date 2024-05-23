@@ -1,0 +1,29 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: cert-manager-staging
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/managed-by: manual
+    app.kubernetes.io/component: cluster-infrastructure
+spec:
+  acme:
+    email: roel@decort.tech
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: cert-manager-staging-key
+    solvers:
+      - selector:
+          dnsZones:
+            - "decort.tech"
+        dns01:
+          route53:
+            region: eu-central-1
+            accessKeyIDSecretRef:
+              name: prd-aws-route53-credentials
+              key: access-key-id
+            secretAccessKeySecretRef:
+              name: prd-aws-route53-credentials
+              key: secret-access-key
+            role: arn:aws:iam::649665367473:role/cert-manager
