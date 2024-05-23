@@ -118,11 +118,10 @@ data "talos_cluster_kubeconfig" "main" {
 
 data "talos_client_configuration" "main" {
   depends_on = [talos_machine_bootstrap.main]
-  for_each   = var.control_nodes
 
   cluster_name         = "${var.cluster_env}-${var.cluster_name}"
   client_configuration = talos_machine_secrets.main.client_configuration
-  endpoints            = [each.value.ip_address]
+  endpoints            = [for node in var.control_nodes : node.ip_address]
 }
 
 data "helm_template" "cilium" {
