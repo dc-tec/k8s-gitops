@@ -58,7 +58,8 @@ resource "libvirt_domain" "control_node" {
   lifecycle {
     ignore_changes = [
       nvram,
-      disk[0].wwn
+      disk[0].wwn,
+      network_interface[0].addresses
     ]
   }
 }
@@ -103,7 +104,8 @@ resource "libvirt_domain" "worker_node" {
     ignore_changes = [
       nvram,
       disk[0].wwn,
-      disk[1].wwn
+      disk[1].wwn,
+      network_interface[0].addresses
     ]
   }
 
