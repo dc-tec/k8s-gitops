@@ -18,12 +18,7 @@ spec:
           dnsZones:
             - "decort.tech"
         dns01:
-          route53:
-            region: eu-central-1
-            accessKeyIDSecretRef:
-              name: prd-aws-route53-credentials
-              key: access-key-id
-            secretAccessKeySecretRef:
-              name: prd-aws-route53-credentials
-              key: secret-access-key
-            role: arn:aws:iam::649665367473:role/cert-manager
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-dns-api
+              key: token
