@@ -62,7 +62,7 @@ locals {
         blocks = [
           {
             start = cidrhost(var.cluster_network, 100)
-            end   = cidrhost(var.cluster_network, 150)
+            stop  = cidrhost(var.cluster_network, 150)
           }
         ]
       }
