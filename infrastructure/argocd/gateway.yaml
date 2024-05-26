@@ -11,7 +11,7 @@ spec:
   listeners:
     - name: https
       hostname: argocd.decort.tech
-      port: 443
+      port: 7443
       protocol: HTTPS
       allowedRoutes:
         namespaces:
