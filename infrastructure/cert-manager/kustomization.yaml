@@ -2,10 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: cert-manager
 
-resources:
-  - cluster-issuer-prd.yaml
-  - cluster-issuer-staging.yaml
-
 helmCharts:
   - name: cert-manager
     includeCRDs: true
@@ -15,5 +11,8 @@ helmCharts:
     repo: https://charts.jetstack.io
     valuesInline:
       installCRDs: true
+      globals:
+        leaderEelection:
+          namespace: cert-manager
       extraArgs:
         - "--feature-gates=ExperimentalGatewayAPISupport=true"
