@@ -27,6 +27,12 @@ override.tf.json
 terraform.rc
 .terraform.lock.hcl
 
+# Kubernetes configuration files
 talosconfig.yaml
 kubeconfig.yaml
+
+# Helm charts created by kustomize
+**/*/*/charts/*
+
+# ISO needed or create by packer
 *.iso
