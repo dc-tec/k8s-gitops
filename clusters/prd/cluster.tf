@@ -131,6 +131,11 @@ data "helm_template" "cilium" {
   version    = "1.15.5"
   namespace  = "kube-system"
 
+
+  api_versions = [
+    "gateway.networking.k8s.io/v1beta1/GatewayClass"
+  ]
+
   set {
     name  = "ipam.mode"
     value = "kubernetes"
