@@ -9,15 +9,22 @@ metadata:
 spec:
   gatewayClassName: cilium
   listeners:
+    - name: http
+      hostname: argocd.decort.tech
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
     - name: https
       hostname: argocd.decort.tech
-      port: 7443
+      port: 443
       protocol: HTTPS
       allowedRoutes:
         namespaces:
           from: All
       tls:
-        mode: Terminate
+        #mode: Terminate
         certificateRefs:
           - name: argocd-tls
 ---
@@ -30,10 +37,14 @@ spec:
   parentRefs:
     - name: argocd-gateway
       namespace: argocd
-      sectionName: https
+      #sectionName: https
   hostnames:
     - "argocd.decort.tech"
   rules:
     - backendRefs:
         - name: argocd-server
           port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

@@ -6,3 +6,6 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.11.0/manifests/install.yaml
   - gateway.yaml
   - namespace.yaml
+
+patchesStrategicMerge:
+  - configmap.yaml
