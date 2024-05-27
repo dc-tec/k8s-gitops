@@ -38,7 +38,8 @@ locals {
         name = "external"
       }
       spec = {
-        LoadBalancerIPs = true
+        loadBalancerIPs = true
+        externalIPs     = true
         interfaces = [
           "eth0",
         ]

@@ -1,7 +1,7 @@
 variable "kubernetes_version" {
   description = "The version of kubernetes to use"
   type        = string
-  default     = "1.30.1"
+  default     = "1.30.0"
 }
 
 variable "talos_version" {
