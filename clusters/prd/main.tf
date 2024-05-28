@@ -15,7 +15,7 @@ terraform {
   }
   required_version = "1.8.3"
 
-  ## For testing, needs to be moved to a remote backend
+  #TODO: make use of service principal 
   backend "azurerm" {
     resource_group_name  = "rg-terraform-prod-westeu-001"
     storage_account_name = "dcttfbackendprod001"
