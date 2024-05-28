@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$"]
+  },
+  "terraform": {
+    "fileMatch": ["\\.tf$"]
+  },
+  "extends": [
+    "config:recommended",
+    "docker:enableMajor"
+  ],
+}
