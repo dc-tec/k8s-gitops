@@ -4,11 +4,12 @@ kind: Kustomization
 namespace: argocd
 resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.11.0/manifests/install.yaml
-  - gateway.yaml
-  - namespace.yaml
+  - base/gateway.yaml
+  - base/namespace.yaml
+  #- base/repo-creds.yaml
 
-patchesStrategicMerge:
-  - cmd-configmap.yaml
-  - cm-configmap.yaml
-  - rbac-configmap.yaml
-  - rbac-configmap.yaml
+patches:
+  - path: overlays/cmd-configmap.yaml
+  - path: overlays/cm-configmap.yaml
+  - path: overlays/rbac-configmap.yaml
+  - path: overlays/rbac-configmap.yaml
