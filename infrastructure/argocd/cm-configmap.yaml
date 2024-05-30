@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  url: https://argocd.decort.tech
+  oidc.config: |
+    name: Azure
+    issuer: https://login.microsoftonline.com/9efbb2a3-8e4f-4a4b-ae0b-e53fe5049a2a/v2.0
+    clientID: aa9c8cdb-8917-4529-a9a2-d16bb96917de
+    clientSecret: $oidc.azure.clientSecret
+    requestedIDTokenClaims:
+      groups:
+        essential: true
+    requestedScopes:
+      - openid
+      - profile
+      - email

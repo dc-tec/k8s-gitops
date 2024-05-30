@@ -8,4 +8,7 @@ resources:
   - namespace.yaml
 
 patchesStrategicMerge:
-  - configmap.yaml
+  - cmd-configmap.yaml
+  - cm-configmap.yaml
+  - rbac-configmap.yaml
+  - rbac-configmap.yaml
