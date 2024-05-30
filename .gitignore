@@ -28,8 +28,10 @@ terraform.rc
 .terraform.lock.hcl
 
 # Kubernetes configuration files
-talosconfig.yaml
-kubeconfig.yaml
+**/talosconfig.yaml
+**/kubeconfig.yaml
+**/repo-creds.yaml
+
 
 # Helm charts created by kustomize
 **/*/*/charts/*
