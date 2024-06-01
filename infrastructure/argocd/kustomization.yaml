@@ -11,7 +11,6 @@ resources:
   - config/repos/k8s-gitops.yaml
 
 patches:
-  - path: overlays/cmd-configmap.yaml
-  - path: overlays/cm-configmap.yaml
-  - path: overlays/rbac-configmap.yaml
-  - path: overlays/rbac-configmap.yaml
+  - path: overlays/argocd-cm.yaml
+  - path: overlays/argocd-cmd-params-cm.yaml
+  - path: overlays/argocd-rbac-cm.yaml
