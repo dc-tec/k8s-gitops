@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/dc-tec/k8s-gitops.git
-    targetRevision: HEAD
+    targetRevision: main
     path: infrastructure/argocd
   destination:
     namespace: argocd
