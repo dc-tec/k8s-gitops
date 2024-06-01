@@ -7,7 +7,7 @@ resources:
   - base/gateway.yaml
   - base/namespace.yaml
   - config/projects/applications.yaml
-  - config/projects/infastructure.yaml
+  - config/projects/infrastructure.yaml
   - config/repos/k8s-gitops.yaml
 
 patches:
