@@ -6,9 +6,9 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.11.0/manifests/install.yaml
   - base/gateway.yaml
   - base/namespace.yaml
-  #- base/repo-secrets.yaml
   - config/projects/applications.yaml
-  - config/projects/infrastructure.yaml
+  - config/projects/infastructure.yaml
+  - config/repos/k8s-gitops.yaml
 
 patches:
   - path: overlays/cmd-configmap.yaml
