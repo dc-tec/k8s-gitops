@@ -14,6 +14,9 @@ helmCharts:
     version: 1.14.2
     repo: https://charts.jetstack.io
     valuesInline:
+      configs:
+        cm:
+          kustomize.buildOptions: --enable-helm
       installCRDs: true
       globals:
         leaderEelection:
