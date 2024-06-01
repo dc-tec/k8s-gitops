@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   url: https://argocd.decort.tech
-  kustomize.buildOptions: --enable-helm
+  kustomize.buildOptions: --enable-helm --load-restrictor LoadRestrictionsNone
   oidc.config: |
     name: Azure
     issuer: https://login.microsoftonline.com/9efbb2a3-8e4f-4a4b-ae0b-e53fe5049a2a/v2.0
