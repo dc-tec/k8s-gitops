@@ -11,8 +11,6 @@ spec:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
     targetRevision: main
     path: infrastructure/argocd
-    directory:
-      recurse: true
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
