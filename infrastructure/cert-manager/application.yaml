@@ -12,7 +12,7 @@ spec:
     targetRevision: main
     path: infrastructure/cert-manager
   destination:
-    namespace: argocd
+    namespace: cert-manager
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
