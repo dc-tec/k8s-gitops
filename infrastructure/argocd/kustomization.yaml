@@ -6,7 +6,7 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.11.0/manifests/install.yaml
   - base/gateway.yaml
   - base/namespace.yaml
-  - base/repo-secrets.yaml
+  #- base/repo-secrets.yaml
 
 patches:
   - path: overlays/cmd-configmap.yaml
