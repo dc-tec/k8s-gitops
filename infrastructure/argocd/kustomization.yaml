@@ -7,6 +7,8 @@ resources:
   - base/gateway.yaml
   - base/namespace.yaml
   #- base/repo-secrets.yaml
+  - config/projects/applications.yaml
+  - config/projects/infrastructure.yaml
 
 patches:
   - path: overlays/cmd-configmap.yaml
