@@ -8,6 +8,13 @@ metadata:
 spec:
   project: infrastructure
   source:
-    repoURL: https://github.com/dc-tec/k8s-gitops.git
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
     targetRevision: main
     path: infrastructure/secret-management/sealed-secrets
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
