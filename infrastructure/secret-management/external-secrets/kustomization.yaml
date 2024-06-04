@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: external-secrets
 
 resources:
+  - base/namespace.yaml
   - base/az-secret-store.yaml
   - config/secrets/az-service-principal.yaml
 
