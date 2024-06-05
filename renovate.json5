@@ -3,6 +3,7 @@
   "platform": "github",
   "semanticCommits": true,
   "labels": ["renovate"],
+  "repositories": ["dc-tec/k8s-gitops"],
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
