@@ -1,6 +1,7 @@
 on:
-  schedule:
-    - cron: "30 23 * * 6,3"
+  workflow_dispatch
+  #schedule:
+  #  - cron: "30 23 * * 6,3"
 
 jobs:
   renovate:
@@ -11,5 +12,6 @@ jobs:
       - name: Renovate
         uses: renovatebot/github-action@v40.1.11
         with:
+          configurationFile: renovate.json5
           renovate-version: full
           token: ${{ secrets.RENOVATE_TOKEN }}
