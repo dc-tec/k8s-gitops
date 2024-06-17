@@ -20,4 +20,4 @@ helmCharts:
         leaderEelection:
           namespace: cert-manager
       extraArgs:
-        - "--feature-gates=ExperimentalGatewayAPISupport=true"
+        - "--enable-gateway-api"
