@@ -75,6 +75,14 @@ resource "talos_machine_configuration_apply" "control_node" {
         network = {
           hostname = each.value.node_name
         }
+        kubelet = {
+          extraMounts = [{
+            destination = "/var/lib/longhorn"
+            type        = "bind"
+            source      = "/var/lib/longhorn"
+            options     = ["bind", "rw", "rshared"]
+          }]
+        }
       }
     })
   ]
@@ -94,6 +102,14 @@ resource "talos_machine_configuration_apply" "worker_node" {
       machine = {
         network = {
           hostname = each.value.node_name
+        }
+        kubelet = {
+          extraMounts = [{
+            destination = "/var/lib/longhorn"
+            type        = "bind"
+            source      = "/var/lib/longhorn"
+            options     = ["bind", "rw", "rshared"]
+          }]
         }
       }
     })
