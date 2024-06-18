@@ -28,7 +28,7 @@ resource "libvirt_domain" "control_node" {
   for_each = var.control_nodes
 
   name     = "${var.cluster_env}-${each.value.node_name}"
-  machine  = "q35"
+  machine  = "pc-q35-8.2"
   firmware = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
 
   vcpu   = 2
@@ -68,7 +68,7 @@ resource "libvirt_domain" "worker_node" {
   for_each = var.worker_nodes
 
   name     = "${var.cluster_env}-${each.value.node_name}"
-  machine  = "q35"
+  machine  = "pc-q35-8.2"
   firmware = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
 
   vcpu   = 2
