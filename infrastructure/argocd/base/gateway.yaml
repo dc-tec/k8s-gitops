@@ -10,14 +10,14 @@ spec:
   gatewayClassName: cilium
   listeners:
     - name: http
-      hostname: argocd.decort.tech
+      hostname: longhorn.decort.tech
       port: 80
       protocol: HTTP
       allowedRoutes:
         namespaces:
           from: All
     - name: https
-      hostname: argocd.decort.tech
+      hostname: longhorn.decort.tech
       port: 443
       protocol: HTTPS
       allowedRoutes:
@@ -26,20 +26,20 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: argocd-tls
+          - name: longhorn-tls
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: argocd-route-redirect
-  namespace: argocd
+  name: longhorn-route-redirect
+  namespace: longhorn-system
 spec:
   parentRefs:
-    - name: argocd-gateway
-      namespace: argocd
+    - name: longhron-gateway
+      namespace: longhorn-system
       sectionName: http
   hostnames:
-    - "argocd.decort.tech"
+    - "longhorn.decort.tech"
   rules:
     - filters:
         - type: RequestRedirect
@@ -50,18 +50,18 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: argocd-route
-  namespace: argocd
+  name: longhorn-route
+  namespace: longhorn-system
 spec:
   parentRefs:
-    - name: argocd-gateway
-      namespace: argocd
+    - name: longhorn-gateway
+      namespace: longhorn-system
       sectionName: https
   hostnames:
-    - "argocd.decort.tech"
+    - "longhorn.decort.tech"
   rules:
     - backendRefs:
-        - name: argocd-server
+        - name: longhorn-frontend
           port: 80
       matches:
         - path:
