@@ -3,5 +3,7 @@ kind: Kustomization
 
 namespace: longhorn-system
 resources:
-  - base/namespace.yaml
   - https://raw.githubusercontent.com/longhorn/longhorn/v1.6.2/deploy/longhorn.yaml
+
+patches:
+  - path: overlays/namespace.yaml
