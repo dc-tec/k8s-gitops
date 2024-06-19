@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: longhorn
 resources:
   - https://raw.githubusercontent.com/longhorn/longhorn/v1.6.2/deploy/longhorn.yaml
+  - base/namespace.yaml
