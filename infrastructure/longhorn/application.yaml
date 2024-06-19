@@ -9,7 +9,7 @@ spec:
   project: infrastructure
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
-    targetRevision: main
+    targetRevision: feature/configure-longhorn
     path: infrastructure/longhorn
   destination:
     namespace: longhorn
