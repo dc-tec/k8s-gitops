@@ -12,5 +12,6 @@ spec:
       namespace: "*"
       server: https://kubernetes.default.svc
   sourceRepos:
-    - https://github.com/dc-tec/k8s-gitops.git
+    - git@github.com/dc-tec/k8s-gitops.git
+
 status: {}
