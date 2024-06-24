@@ -9,8 +9,8 @@ spec:
   project: applications
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
-    targetRevision: feature/deploy-postgress
-    path: infrastructure/cert-manager
+    targetRevision: main
+    path: applications/cloudnative-pg
   destination:
     namespace: cnpg-system
     server: https://kubernetes.default.svc
