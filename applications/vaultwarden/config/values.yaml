@@ -1,0 +1,5 @@
+data:
+  name: vaultwarden-app-data
+  size: 10Gi
+  class: longhorn
+  path: /data
