@@ -13,7 +13,7 @@ terraform {
       version = "2.14.0"
     }
   }
-  required_version = "1.8.5"
+  required_version = "1.9.4"
 
   #TODO: make use of service principal 
   backend "azurerm" {
