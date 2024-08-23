@@ -1,0 +1,35 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: CLuster
+metadata:
+  name: vaultwarden-db
+spec:
+  description: "Vaultwarden DB Storage"
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.4
+  instances: 3
+  startDelay: 300
+  stopDelay: 300
+  primaryUpdateStrategy: unsupervised
+
+  bootstrap:
+    initdb:
+      database: vaultwarden-app
+      owner: vaultwarden-app
+      secret:
+        name: vault-db-user
+
+      enableSUperuserAccesss: false
+      superuserSecret:
+        name: vault-db-super-user
+
+      storage:
+        storageClass: longhorn
+        size: 15Gi
+
+      #resources:
+      #  requests:
+      #  memory: ""
+      #  cpu: ""
+
+      #limits:
+      #  memory: ""
+      #  cpu: ""

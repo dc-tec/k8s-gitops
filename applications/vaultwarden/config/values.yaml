@@ -1,5 +1,14 @@
+domain: passwords.decort.tech
+
 data:
   name: vaultwarden-app-data
   size: 10Gi
   class: longhorn
   path: /data
+
+database:
+  type: "postgresql"
+  host:
+  port: 5432
+  username:
+  password:

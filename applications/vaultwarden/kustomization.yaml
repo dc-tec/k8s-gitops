@@ -3,9 +3,7 @@ kind: Kustomization
 
 resources:
   - base/namespace.yaml
-  - base/ingress.yaml
-  - base/pvc-app.yaml
-  - base/pvc-db.yaml
+  - base/gateway.yaml
   - base/database.yaml
 
 helmCharts:
@@ -13,6 +11,6 @@ helmCharts:
     includeCRDs: true
     releaseName: vaultwarden
     namespace: vaultwarden-app
-    version: 0.23.0
+    version: 0.24.1
     repo: https://guerzon.github.io/vaultwarden
     valuesFile: config/values.yaml
