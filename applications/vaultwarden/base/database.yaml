@@ -2,6 +2,10 @@ apiVersion: postgresql.cnpg.io/v1
 kind: CLuster
 metadata:
   name: vaultwarden-db
+  version: "16.4"
+  component: database
+  part-of: vaultwarden
+  managed-by: cnpg
 spec:
   description: "Vaultwarden DB Storage"
   imageName: ghcr.io/cloudnative-pg/postgresql:16.4
