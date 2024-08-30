@@ -3,6 +3,7 @@ domain: passwords.decort.tech
 data:
   name: vaultwarden-app-data
   size: 10Gi
+  accessMode: "ReadWriteOnce"
   class: longhorn
   path: /data
 
