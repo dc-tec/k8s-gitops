@@ -8,7 +8,5 @@ data:
 
 database:
   type: "postgresql"
-  host:
-  port: 5432
-  username:
-  password:
+  existingSecret: vaultwarden-db-app
+  existingSecretKey: uri
