@@ -1,5 +1,5 @@
 apiVersion: postgresql.cnpg.io/v1
-kind: CLuster
+kind: Cluster
 metadata:
   name: vaultwarden-db
   version: "16.4"
