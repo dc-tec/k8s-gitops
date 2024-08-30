@@ -17,7 +17,7 @@ spec:
   bootstrap:
     initdb:
       database: vaultwarden-app
-      owner: vaultwarden-db-user
+      owner: vault-db-user
       secret:
         name: vault-db-user
 
