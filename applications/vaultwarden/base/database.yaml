@@ -21,13 +21,14 @@ spec:
       secret:
         name: vault-db-user
 
-      enableSUperuserAccesss: false
-      superuserSecret:
-        name: vault-db-super-user
+  enableSUperuserAccesss: false
+  superuserSecret:
+    name: vault-db-super-user
 
-      storage:
-        storageClass: longhorn
-        size: 15Gi
+  storage:
+    storageClass: longhorn
+    size:
+      15Gi
 
       #resources:
       #  requests:
