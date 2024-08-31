@@ -19,7 +19,7 @@ spec:
     parameters:
       log_statement: "ddl" # Only log Create, Alter and Drop statements
 
-  enableSUperuserAccesss: false
+  enableSuperuserAccess: false
   superuserSecret:
     name: vault-db-super-user
 
