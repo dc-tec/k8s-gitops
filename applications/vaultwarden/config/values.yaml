@@ -1,0 +1,19 @@
+domain: http://password.decort.tech
+
+data:
+  name: vaultwarden-app-data
+  size: 10Gi
+  accessMode: "ReadWriteOnce"
+  class: longhorn
+  path: /data
+
+database:
+  type: "postgresql"
+  existingSecret: vaultwarden-db-app
+  existingSecretKey: uri
+
+adminToken:
+  existingSecret: vault-admin
+  existingSecretKey: ADMIN_TOKEN
+
+timeZone: "Europe/Amsterdam"

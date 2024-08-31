@@ -17,7 +17,7 @@ terraform {
 
   #TODO: make use of service principal 
   backend "azurerm" {
-    resource_group_name  = "rg-terraform-prod-westeu-001"
+    resource_group_name  = "rg-dct-prd-westeu"
     storage_account_name = "dcttfbackendprod001"
     container_name       = "tfstate"
     key                  = "talos/prod.terraform.tfstate"
