@@ -25,14 +25,4 @@ spec:
 
   storage:
     storageClass: longhorn
-    size:
-      15Gi
-
-      #resources:
-      #  requests:
-      #  memory: ""
-      #  cpu: ""
-
-      #limits:
-      #  memory: ""
-      #  cpu: ""
+    size: 15Gi
