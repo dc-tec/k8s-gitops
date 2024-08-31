@@ -18,8 +18,8 @@ spec:
     initdb:
       database: vaultwarden-app
       owner: vault-db-user
-      secret:
-        name: vault-db-user
+      #secret:
+      #  name: vault-db-user
 
   enableSUperuserAccesss: false
   superuserSecret:
