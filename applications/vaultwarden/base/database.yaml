@@ -2,10 +2,6 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: vaultwarden-db
-  version: "16.4"
-  component: database
-  part-of: vaultwarden
-  managed-by: cnpg
 spec:
   description: "Vaultwarden DB Storage"
   imageName: ghcr.io/cloudnative-pg/postgresql:16.4
@@ -18,8 +14,10 @@ spec:
     initdb:
       database: vaultwarden-app
       owner: vault-db-user
-      #secret:
-      #  name: vault-db-user
+
+  postgresql:
+    parameters:
+      log_statement: "ddl" # Only log Create, Alter and Drop statements
 
   enableSUperuserAccesss: false
   superuserSecret:
