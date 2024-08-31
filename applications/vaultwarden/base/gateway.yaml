@@ -61,7 +61,7 @@ spec:
     - "password.decort.tech"
   rules:
     - backendRefs:
-        - name: vaultwarden-server
+        - name: vaultwarden
           port: 80
       matches:
         - path:
