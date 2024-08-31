@@ -1,4 +1,4 @@
-domain: passwords.decort.tech
+domain: http://password.decort.tech
 
 data:
   name: vaultwarden-app-data
