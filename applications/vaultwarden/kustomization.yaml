@@ -5,7 +5,7 @@ resources:
   - base/namespace.yaml
   - base/gateway.yaml
   - base/database.yaml
-  - config/secrets/vault-db-user.yaml
+  - config/secrets/vault-admin.yaml
   - config/secrets/vault-db-super-user.yaml
 
 helmCharts:

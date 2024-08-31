@@ -11,3 +11,9 @@ database:
   type: "postgresql"
   existingSecret: vaultwarden-db-app
   existingSecretKey: uri
+
+adminToken:
+  existingSecret: vault-admin
+  existingSecretKey: ADMIN_TOKEN
+
+timeZone: "Europe/Amsterdam"
