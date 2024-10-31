@@ -78,8 +78,7 @@ resource "talos_machine_configuration_apply" "control_node" {
     yamlencode({
       machine = {
         network = {
-          hostname    = each.value.node_name
-          nameservers = ["1.1.1.1", "1.0.0.1"]
+          hostname = each.value.node_name
         }
         kubelet = {
           extraMounts = [{
@@ -107,7 +106,8 @@ resource "talos_machine_configuration_apply" "worker_node" {
     yamlencode({
       machine = {
         network = {
-          hostname = each.value.node_name
+          hostname    = each.value.node_name
+          nameservers = ["1.1.1.1", "1.0.0.1"]
         }
         kubelet = {
           extraMounts = [{

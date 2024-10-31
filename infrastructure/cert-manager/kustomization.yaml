@@ -15,8 +15,5 @@ helmCharts:
     repo: https://charts.jetstack.io
     valuesInline:
       installCRDs: true
-      globals:
-        leaderEelection:
-          namespace: cert-manager
       extraArgs:
         - "--enable-gateway-api"
