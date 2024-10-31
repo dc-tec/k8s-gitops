@@ -45,8 +45,7 @@ resource "libvirt_domain" "control_node" {
   }
 
   network_interface {
-    bridge = "br0"
-    #network_id     = libvirt_network.k8s.id
+    bridge         = "br0"
     wait_for_lease = true
   }
 
@@ -87,12 +86,12 @@ resource "libvirt_domain" "worker_node" {
 
   disk {
     volume_id = libvirt_volume.worker_node_data_0[each.key].id
+    wwn       = format("000000000000ab%02x", index(keys(var.worker_nodes), each.key))
     scsi      = true
   }
 
   network_interface {
-    bridge = "br0"
-    #network_id     = libvirt_network.k8s.id
+    bridge         = "br0"
     wait_for_lease = true
   }
 
