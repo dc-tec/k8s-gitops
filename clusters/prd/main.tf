@@ -13,7 +13,7 @@ terraform {
       version = "2.16.1"
     }
   }
-  required_version = "1.9.7"
+  required_version = "1.9.8"
 
   backend "azurerm" {
     resource_group_name  = "rg-dct-prd-westeu"
