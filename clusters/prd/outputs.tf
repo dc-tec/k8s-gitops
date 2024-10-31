@@ -4,14 +4,14 @@ output "talos_config" {
 }
 
 output "kubeconfig" {
-  value     = data.talos_cluster_kubeconfig.main.kubeconfig_raw
+  value     = talos_cluster_kubeconfig.main.kubeconfig_raw
   sensitive = true
 }
 
 output "control_nodes" {
-  value = join(",", [for node in var.control_nodes : node.ip_address])
+  value = join(",", [for key in keys(var.control_nodes) : libvirt_domain.control_node[key].network_interface[0].addresses[0]])
 }
 
 output "worker_nodes" {
-  value = join(",", [for node in var.worker_nodes : node.ip_address])
+  value = join(",", [for key in keys(var.worker_nodes) : libvirt_domain.worker_node[key].network_interface[0].addresses[0]])
 }

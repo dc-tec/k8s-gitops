@@ -1,13 +1,13 @@
 variable "kubernetes_version" {
   description = "The version of kubernetes to use"
   type        = string
-  default     = "1.30.0"
+  default     = "1.31.0"
 }
 
 variable "talos_version" {
   description = "The talos version used"
   type        = string
-  default     = "v1.7.2"
+  default     = "v1.8.2"
 }
 
 variable "cluster_env" {
@@ -30,6 +30,11 @@ variable "cluster_network_name" {
   type        = string
 }
 
+variable "cluster_gateway" {
+  description = "The gateway for the kubernetes cluster"
+  type        = string
+}
+
 variable "cluster_network" {
   description = "The network address for the kubernetes cluster"
   type        = string
@@ -48,7 +53,7 @@ variable "cluster_endpoint" {
 variable "base_volume" {
   description = "The base volume for our Talos VM's"
   type        = string
-  default     = "talos"
+  default     = "talos-base"
 }
 
 variable "control_nodes" {
@@ -70,5 +75,5 @@ variable "worker_nodes" {
 variable "talso_version" {
   description = "The version of Talos to use"
   type        = string
-  default     = "v1.7.2"
+  default     = "v1.8.2"
 }

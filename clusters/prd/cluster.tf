@@ -1,8 +1,10 @@
 resource "talos_machine_secrets" "main" {
+  depends_on    = [libvirt_domain.control_node]
   talos_version = var.talso_version
 }
 
 data "talos_machine_configuration" "control_node" {
+  depends_on         = [libvirt_domain.control_node]
   cluster_name       = "${var.cluster_env}-${var.cluster_name}"
   cluster_endpoint   = var.cluster_endpoint
   machine_secrets    = talos_machine_secrets.main.machine_secrets
@@ -26,6 +28,7 @@ data "talos_machine_configuration" "control_node" {
               }
             }
           ]
+          nameservers = ["1.1.1.1", "1.0.0.1"]
         }
       }
     }),
@@ -46,6 +49,8 @@ data "talos_machine_configuration" "control_node" {
 }
 
 data "talos_machine_configuration" "worker_node" {
+  depends_on = [libvirt_domain.worker_node]
+
   cluster_name       = "${var.cluster_env}-${var.cluster_name}"
   cluster_endpoint   = var.cluster_endpoint
   machine_secrets    = talos_machine_secrets.main.machine_secrets
@@ -66,14 +71,15 @@ resource "talos_machine_configuration_apply" "control_node" {
 
   client_configuration        = talos_machine_secrets.main.client_configuration
   machine_configuration_input = data.talos_machine_configuration.control_node.machine_configuration
-  endpoint                    = each.value.ip_address
-  node                        = each.value.ip_address
+  endpoint                    = libvirt_domain.control_node[each.key].network_interface[0].addresses[0]
+  node                        = libvirt_domain.control_node[each.key].network_interface[0].addresses[0]
 
   config_patches = [
     yamlencode({
       machine = {
         network = {
-          hostname = each.value.node_name
+          hostname    = each.value.node_name
+          nameservers = ["1.1.1.1", "1.0.0.1"]
         }
         kubelet = {
           extraMounts = [{
@@ -94,8 +100,8 @@ resource "talos_machine_configuration_apply" "worker_node" {
 
   client_configuration        = talos_machine_secrets.main.client_configuration
   machine_configuration_input = data.talos_machine_configuration.worker_node.machine_configuration
-  endpoint                    = each.value.ip_address
-  node                        = each.value.ip_address
+  endpoint                    = libvirt_domain.worker_node[each.key].network_interface[0].addresses[0]
+  node                        = libvirt_domain.worker_node[each.key].network_interface[0].addresses[0]
 
   config_patches = [
     yamlencode({
@@ -120,16 +126,16 @@ resource "talos_machine_bootstrap" "main" {
   depends_on = [talos_machine_configuration_apply.control_node]
 
   client_configuration = talos_machine_secrets.main.client_configuration
-  endpoint             = var.control_nodes["control_01"].ip_address
-  node                 = var.control_nodes["control_01"].ip_address
+  endpoint             = libvirt_domain.control_node["control_01"].network_interface[0].addresses[0]
+  node                 = libvirt_domain.control_node["control_01"].network_interface[0].addresses[0]
 }
 
-data "talos_cluster_kubeconfig" "main" {
+resource "talos_cluster_kubeconfig" "main" {
   depends_on = [talos_machine_bootstrap.main]
 
   client_configuration = talos_machine_secrets.main.client_configuration
-  endpoint             = var.control_nodes["control_01"].ip_address
-  node                 = var.control_nodes["control_01"].ip_address
+  endpoint             = libvirt_domain.control_node["control_01"].network_interface[0].addresses[0]
+  node                 = libvirt_domain.control_node["control_01"].network_interface[0].addresses[0]
 }
 
 data "talos_client_configuration" "main" {
@@ -137,10 +143,12 @@ data "talos_client_configuration" "main" {
 
   cluster_name         = "${var.cluster_env}-${var.cluster_name}"
   client_configuration = talos_machine_secrets.main.client_configuration
-  endpoints            = [for node in var.control_nodes : node.ip_address]
+  endpoints            = [for key in keys(var.control_nodes) : libvirt_domain.control_node[key].network_interface[0].addresses[0]]
 }
 
 data "helm_template" "cilium" {
+  depends_on = [libvirt_domain.control_node]
+
   name       = "cilium"
   repository = "https://helm.cilium.io/"
   chart      = "cilium"
@@ -225,4 +233,3 @@ data "helm_template" "cilium" {
     value = "true"
   }
 }
-

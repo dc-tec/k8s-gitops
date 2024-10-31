@@ -8,7 +8,7 @@ packer {
 }
 
 source "qemu" "talos" {
-  iso_url = ".content/alpine-3.19.1.iso"
+  iso_url = "base/alpine-3.19.1.iso"
   iso_checksum = "63e62f5a52cfe73a6cb137ecbb111b7d48356862a1dfe50d8fdd977d727da192"
   output_directory = ".content"
   shutdown_command = "echo 'packer talos build' | doas poweroff"
@@ -20,6 +20,7 @@ source "qemu" "talos" {
   ssh_timeout = "30m"
   vm_name = "talos"
   net_device = "virtio-net"
+  headless = true
   disk_interface = "virtio"
   memory = 4096
   boot_wait = "20s"
