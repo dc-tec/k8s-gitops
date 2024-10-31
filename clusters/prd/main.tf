@@ -2,7 +2,7 @@ terraform {
   required_providers {
     libvirt = {
       source  = "dmacvicar/libvirt"
-      version = "0.8.0"
+      version = "0.8.1"
     }
     talos = {
       source  = "siderolabs/talos"
@@ -10,12 +10,19 @@ terraform {
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "2.16.0"
+      version = "2.16.1"
+    }
+    external = {
+      source  = "hashicorp/external"
+      version = "2.3.4"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.3"
     }
   }
   required_version = "1.9.7"
 
-  #TODO: make use of service principal 
   backend "azurerm" {
     resource_group_name  = "rg-dct-prd-westeu"
     storage_account_name = "dcttfbackendprod001"
