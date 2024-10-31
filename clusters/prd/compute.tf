@@ -25,7 +25,8 @@ resource "libvirt_volume" "worker_node_data_0" {
 }
 
 resource "libvirt_domain" "control_node" {
-  for_each = var.control_nodes
+  depends_on = [libvirt_network.k8s]
+  for_each   = var.control_nodes
 
   name     = "${var.cluster_env}-${each.value.node_name}"
   machine  = "pc-q35-8.2"
@@ -44,35 +45,36 @@ resource "libvirt_domain" "control_node" {
   }
 
   network_interface {
-    network_id     = libvirt_network.k8s.id
-    addresses      = [each.value.ip_address]
-    wait_for_lease = false
+    bridge = "br0"
+    #network_id     = libvirt_network.k8s.id
+    wait_for_lease = true
   }
 
   video {
     type = "qxl"
   }
 
-  qemu_agent = false
+  qemu_agent = true
 
   lifecycle {
     ignore_changes = [
       nvram,
       disk[0].wwn,
-      network_interface[0].addresses
+      #network_interface[0].addresses
     ]
   }
 }
 
 resource "libvirt_domain" "worker_node" {
-  for_each = var.worker_nodes
+  depends_on = [libvirt_network.k8s]
+  for_each   = var.worker_nodes
 
   name     = "${var.cluster_env}-${each.value.node_name}"
   machine  = "pc-q35-8.2"
   firmware = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
 
   vcpu   = 2
-  memory = 4 * 1024 # 4 GB
+  memory = 8 * 1024 # 8 GB
 
   cpu {
     mode = "host-passthrough"
@@ -89,25 +91,23 @@ resource "libvirt_domain" "worker_node" {
   }
 
   network_interface {
-    network_id     = libvirt_network.k8s.id
-    addresses      = [each.value.ip_address]
-    wait_for_lease = false
+    bridge = "br0"
+    #network_id     = libvirt_network.k8s.id
+    wait_for_lease = true
   }
 
   video {
     type = "qxl"
   }
 
-  qemu_agent = false
+  qemu_agent = true
 
   lifecycle {
     ignore_changes = [
       nvram,
       disk[0].wwn,
       disk[1].wwn,
-      network_interface[0].addresses
+      #network_interface[0].addresses
     ]
   }
-
 }
-
