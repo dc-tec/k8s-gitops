@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - base/cluster-issuer-prd.yaml
   - base/cluster-issuer-staging.yaml
+  - base/cluster-issuer-self.yaml
   - config/secrets/cloudflare-api.yaml
 
 helmCharts:
