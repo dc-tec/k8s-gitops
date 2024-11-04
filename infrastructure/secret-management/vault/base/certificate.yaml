@@ -1,21 +1,82 @@
+# Create Root CA Certificate
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: vault-internal-tls
+  name: vault-ca
+  namespace: vault-infra
+spec:
+  isCA: true
+  commonName: Vault Root CA
+  secretName: vault-ca-tls
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
+  duration: 87600h # 10 years
+  renewBefore: 8760h # 1 year
+  subject:
+    organizations:
+      - system:nodes
+    countries:
+      - NL
+  keystores:
+    pkcs12:
+      create: true
+      passwordSecretRef:
+        name: pkcs12-password
+        key: password
+  issuerRef:
+    name: cert-manager-self
+    kind: ClusterIssuer
+---
+# Create CA Issuer using the Root CA
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+  namespace: vault-infra
+spec:
+  ca:
+    secretName: vault-ca-tls
+---
+# Create Vault Server Certificate
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vault-tls
   namespace: vault-infra
 spec:
   secretName: vault-internal-tls
   duration: 720h # 30 days
   renewBefore: 360h # 15 days
-  commonName: vault-api.decort.tech
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
+  subject:
+    organizations:
+      - system:nodes
+    countries:
+      - NL
+  commonName: system:node:*.vault-infra.svc.cluster.local
   dnsNames:
-    - vault-api.decort.tech
-    - vault.vault.svc.cluster.local
-    - vault.vault.svc
+    - vault.vault-infra.svc.cluster.local
+    - vault.vault-infra.svc
+    - vault-infra
     - vault
     - "*.vault-internal"
-    - "*.vault-internal.vault.svc.cluster.local"
-    - "*.vault-internal.vault.svc"
+    - "*.vault-internal.vault-infra.svc.cluster.local"
+    - "*.vault-internal.vault-infra.svc"
+  ipAddresses:
+    - "127.0.0.1"
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - key encipherment
   issuerRef:
-    name: cert-manager-prd  # Using your existing ClusterIssuer
-    kind: ClusterIssuer
+    name: vault-issuer
+    kind: Issuer
+    group: cert-manager.io
