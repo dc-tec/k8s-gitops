@@ -31,6 +31,7 @@ spec:
   issuerRef:
     name: cert-manager-self
     kind: ClusterIssuer
+    group: cert-manager.io
 ---
 # Create CA Issuer using the Root CA
 apiVersion: cert-manager.io/v1
