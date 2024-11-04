@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+  labels:
+    name: vault
+spec:
+  project: infrastructure
+  source:
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
+    targetRevision: deploy-vault
+    path: infrastructure/secret-management/vault
+  destination:
+    namespace: vault-infra
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vault-internal-tls
+  namespace: vault-infra
+spec:
+  secretName: vault-internal-tls
+  duration: 720h # 30 days
+  renewBefore: 360h # 15 days
+  commonName: vault-api.decort.tech
+  dnsNames:
+    - vault-api.decort.tech
+    - vault.vault.svc.cluster.local
+    - vault.vault.svc
+    - vault
+    - "*.vault-internal"
+    - "*.vault-internal.vault.svc.cluster.local"
+    - "*.vault-internal.vault.svc"
+  issuerRef:
+    name: cert-manager-prd  # Using your existing ClusterIssuer
+    kind: ClusterIssuer
