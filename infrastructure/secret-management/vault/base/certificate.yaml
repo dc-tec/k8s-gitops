@@ -6,6 +6,8 @@ metadata:
   namespace: vault-infra
   annotations:
     cert-manager.io/approve: "true"
+    cert-manager.io/cluster-issuer: cert-manager-self
+    cert-manager.io/issuer-group: cert-manager.io
 spec:
   isCA: true
   commonName: Vault Root CA
