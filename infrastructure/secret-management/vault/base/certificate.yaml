@@ -4,6 +4,8 @@ kind: Certificate
 metadata:
   name: vault-ca
   namespace: vault-infra
+  annotations:
+    cert-manager.io/approve: "true"
 spec:
   isCA: true
   commonName: Vault Root CA
