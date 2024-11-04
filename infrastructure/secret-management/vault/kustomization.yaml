@@ -7,10 +7,10 @@ resources:
   - base/certificate.yaml
 
 helmCharts:
-  - name: vaultwarden
+  - name: vault
     includeCRDs: true
     releaseName: vault
     namespace: vault-infra
-    version: 0.28.0
+    version: 0.28.1
     repo: https://helm.releases.hashicorp.com
     valuesFile: config/values.yaml
