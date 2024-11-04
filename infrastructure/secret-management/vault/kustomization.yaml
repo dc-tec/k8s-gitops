@@ -5,7 +5,8 @@ resources:
   - base/namespace.yaml
   - base/gateway.yaml
   - base/certificate.yaml
-  - base/pki-rbac.yaml
+  - base/certificate-policy.yaml
+  - base/vault-approver-rbac.yaml
 
 helmCharts:
   - name: vault
