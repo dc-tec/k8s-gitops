@@ -56,7 +56,7 @@ server:
 
   ha:
     enabled: true
-    replicas: 5
+    replicas: 3
     raft:
       enabled: true
       setNodeId: true
@@ -88,18 +88,6 @@ server:
         }
         retry_join {
           leader_api_addr = "https://vault-2.vault-internal:8200"
-          leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-          leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-          leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
-        }
-        retry_join {
-          leader_api_addr = "https://vault-3.vault-internal:8200"
-          leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-          leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-          leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
-        }
-        retry_join {
-          leader_api_addr = "https://vault-4.vault-internal:8200"
           leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
