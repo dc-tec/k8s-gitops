@@ -35,6 +35,7 @@ metadata:
 spec:
   parentRefs:
     - name: vault-gateway
+      namespace: vault-infra
       sectionName: http
   hostnames:
     - "vault.decort.tech"
@@ -53,6 +54,7 @@ metadata:
 spec:
   parentRefs:
     - name: vault-gateway
+      namespace: vault-infra
       sectionName: https
   hostnames:
     - "vault.decort.tech"
