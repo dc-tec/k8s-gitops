@@ -40,8 +40,10 @@ server:
 
   dataStorage:
     enabled: true
+    size: 5Gi
   auditStorage:
     enabled: true
+    size: 5Gi
 
   standalone:
     enabled: false
