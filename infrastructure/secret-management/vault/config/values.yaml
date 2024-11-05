@@ -71,6 +71,10 @@ server:
         tls_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
       }
 
+      service_registration "kubernetes" {
+        namespace = "vault-infra"
+      }
+
       storage "raft" {
         path = "/vault/data"
         retry_join {
@@ -93,7 +97,7 @@ server:
         }
       }
 
-  service_registration: "kubernetes"
+
 
 ui:
   enabled: false
