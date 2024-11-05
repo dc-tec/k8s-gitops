@@ -28,11 +28,13 @@ server:
   readinessProbe:
     enabled: true
     path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
+    scheme: HTTPS
   livenessProbe:
     enabled: true
     path: "/v1/sys/health?standbyok=true"
+    scheme: HTTPS
     initialDelaySeconds: 60
-  
+    
   # Set the extra volumes for the vault server these will be exposed in the path /vault/userconfig/<name>
   extraVolumes:
     - type: secret
