@@ -1,6 +1,5 @@
 global:
   enabled: true
-  tlsDisable: false
   resources:
     requests:
       memory: 256Mi
