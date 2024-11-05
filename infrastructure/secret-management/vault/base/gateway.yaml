@@ -60,5 +60,5 @@ spec:
     - "vault.decort.tech"
   rules:
     - backendRefs:
-        - name: vault-ui
+        - name: vault-active
           port: 8200
