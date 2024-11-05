@@ -32,7 +32,7 @@ server:
     scheme: HTTPS
   livenessProbe:
     enabled: true
-    path: "/v1/sys/health?standbyok=true"
+    path: /v1/sys/health?sealedcode=204&standbycode=204&uninitcode=204&
     scheme: HTTPS
     initialDelaySeconds: 60
 
