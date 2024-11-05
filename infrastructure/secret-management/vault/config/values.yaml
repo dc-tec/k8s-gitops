@@ -1,5 +1,6 @@
 global:
   enabled: true
+  tlsDisable: false
   resources:
     requests:
       memory: 256Mi
@@ -9,6 +10,9 @@ global:
       cpu: 500m
 
 affinity: ""
+
+injector:
+  enabled: true
 
 server:
   # Set the image for the vault server
@@ -32,7 +36,7 @@ server:
     scheme: HTTPS
   livenessProbe:
     enabled: true
-    path: /v1/sys/health?sealedcode=204&standbycode=204&uninitcode=204&
+    path: "/v1/sys/health?standbyok=true"
     scheme: HTTPS
     initialDelaySeconds: 60
 
@@ -45,6 +49,8 @@ server:
 
   extraEnvironmentVars:
     VAULT_CACERT: /vault/userconfig/vault-ca-tls/ca.crt
+    VAULT_TLSCERT: /vault/userconfig/vault-internal-tls/tls.crt
+    VAULT_TLSKEY: /vault/userconfig/vault-internal-tls/tls.key
 
   dataStorage:
     enabled: true
