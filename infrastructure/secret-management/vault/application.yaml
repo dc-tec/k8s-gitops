@@ -15,7 +15,7 @@ spec:
     namespace: vault-infra
     server: https://kubernetes.default.svc
   ignoreDifferences:
-  - group: admissionregistration.k8s.io
+  - group: admissionregistrations
     kind: MutatingWebhookConfiguration
     name: vault-agent-injector-cfg
     namespace: vault-infra
