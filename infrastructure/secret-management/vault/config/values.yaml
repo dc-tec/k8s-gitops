@@ -65,8 +65,8 @@ server:
     
       config: |
         ui = true
-        cluster_name = prd-dct-vault
-        
+        cluster_name = "prd-dct-vault"
+      
         listener "tcp" {
           address = "[::]:8200"
           cluster_address = "[::]:8201"
