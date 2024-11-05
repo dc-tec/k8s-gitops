@@ -71,7 +71,7 @@ server:
           tls_disable = 0
           address = "[::]:8200"
           cluster_address = "[::]:8201"
-          tls_ca_file = "/vault/userconfig/vault-ca-tls/ca.crt"
+          tls_client_ca_file = "/vault/userconfig/vault-ca-tls/ca.crt"
           tls_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           tls_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
         }
