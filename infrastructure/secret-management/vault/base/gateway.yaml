@@ -62,3 +62,7 @@ spec:
     - backendRefs:
         - name: vault-active
           port: 8200
+      matches:
+        - path:
+            type: PathPrefix
+            value: /ui
