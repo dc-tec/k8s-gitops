@@ -9,6 +9,8 @@ global:
       memory: 512Mi
       cpu: 500m
 
+affinity: ""
+
 server:
   # Set the image for the vault server
   image:
