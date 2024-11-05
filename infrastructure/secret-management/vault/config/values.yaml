@@ -34,11 +34,14 @@ server:
     path: "/v1/sys/health?standbyok=true"
     scheme: HTTPS
     initialDelaySeconds: 60
-    
+
   # Set the extra volumes for the vault server these will be exposed in the path /vault/userconfig/<name>
   extraVolumes:
     - type: secret
       name: vault-internal-tls
+
+  extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/vault-internal-tls/tls.crt
 
   dataStorage:
     enabled: true
@@ -71,26 +74,31 @@ server:
         path = "/vault/data"
         retry_join {
           leader_api_addr = "https://vault-0.vault-internal:8200"
+          leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
         }
         retry_join {
           leader_api_addr = "https://vault-1.vault-internal:8200"
+          leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
         }
         retry_join {
           leader_api_addr = "https://vault-2.vault-internal:8200"
+          leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
         }
         retry_join {
           leader_api_addr = "https://vault-3.vault-internal:8200"
+          leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
         }
         retry_join {
           leader_api_addr = "https://vault-4.vault-internal:8200"
+          leader_ca_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
         }
