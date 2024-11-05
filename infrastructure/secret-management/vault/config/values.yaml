@@ -73,9 +73,7 @@ server:
         tls_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
       }
 
-      service_registration "kubernetes" {
-        namespace = "vault-infra"
-      }
+      service_registration "kubernetes" {}
 
       storage "raft" {
         path = "/vault/data"
