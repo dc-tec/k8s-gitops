@@ -68,6 +68,7 @@ server:
         cluster_name = "prd-dct-vault"
       
         listener "tcp" {
+          tls_disable = 0
           address = "[::]:8200"
           cluster_address = "[::]:8201"
           tls_ca_file = "/vault/userconfig/vault-ca-tls/ca.crt"
