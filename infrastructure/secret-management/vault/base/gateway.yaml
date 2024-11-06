@@ -70,3 +70,8 @@ spec:
                 value: "${.source.address}"
               - name: "X-Forwarded-Proto"
                 value: "https"
+              - name: "X-Forwarded-Port"
+                value: "443"
+            set:
+              - name: "X-Forwarded-Proto"
+                value: "https"
