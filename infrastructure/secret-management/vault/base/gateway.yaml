@@ -72,7 +72,3 @@ spec:
                 value: "${.source.address}"
               - name: "X-Forwarded-Proto"
                 value: "https"
-              - name: "X-Forwarded-Port"
-                value: "443"
-              - name: "X-Forwarded-Host"
-                value: "vault.decort.tech"
