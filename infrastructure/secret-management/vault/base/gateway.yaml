@@ -63,7 +63,7 @@ spec:
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
-            add:
+            set:
               - name: "X-Forwarded-For"
                 value: "${.source.address}"
               - name: "X-Real-IP"
@@ -72,6 +72,5 @@ spec:
                 value: "https"
               - name: "X-Forwarded-Port"
                 value: "443"
-            set:
-              - name: "X-Forwarded-Proto"
-                value: "https"
+              - name: "X-Forwarded-Host"
+                value: "vault.decort.tech"
