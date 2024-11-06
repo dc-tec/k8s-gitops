@@ -43,14 +43,14 @@ server:
   # Set the extra volumes for the vault server these will be exposed in the path /vault/userconfig/<name>
   extraVolumes:
     - type: secret
-      name: vault-internal-tls
-    - type: secret
-      name: vault-ca-tls
+      name: vault-tls
+    #- type: secret
+    #  name: vault-ca-tls
 
   extraEnvironmentVars:
     #VAULT_CACERT: /vault/userconfig/vault-ca-tls/ca.crt
-    VAULT_TLS_CERT: /vault/userconfig/vault-internal-tls/tls.crt
-    VAULT_TLS_KEY: /vault/userconfig/vault-internal-tls/tls.key
+    VAULT_TLS_CERT: /vault/userconfig/vault-tls/tls.crt
+    VAULT_TLS_KEY: /vault/userconfig/vault-tls/tls.key
 
   dataStorage:
     enabled: true
