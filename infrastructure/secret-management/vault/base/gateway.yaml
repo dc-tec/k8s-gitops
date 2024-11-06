@@ -64,7 +64,7 @@ spec:
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
-            set:
+            add:
               - name: "X-Forwarded-For"
                 value: "${.source.address}"
               - name: "X-Real-IP"
