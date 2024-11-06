@@ -63,10 +63,16 @@ spec:
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
-            set:
+            set:  # Using 'set' to ensure headers are overwritten, not appended
+              - name: "Host"
+                value: "${.host}"
               - name: "X-Forwarded-For"
                 value: "${.source.address}"
               - name: "X-Real-IP"
                 value: "${.source.address}"
               - name: "X-Forwarded-Proto"
                 value: "https"
+              - name: "X-Forwarded-Port"
+                value: "443"
+            add:  # Additional headers that we want to append
+              - name: "X-Forwarded-Host"
