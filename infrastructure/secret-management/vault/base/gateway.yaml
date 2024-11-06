@@ -39,7 +39,7 @@ spec:
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
-            set:
+            add:
               - name: "X-Forwarded-For"
                 value: "${.source.address}"
               - name: "X-Real-IP"
@@ -47,4 +47,4 @@ spec:
               - name: "X-Forwarded-Proto"
                 value: "https"
               - name: "Host"
-                value: "vault-active.vault-infra.svc"
+                value: "${.host}"
