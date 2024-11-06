@@ -58,7 +58,7 @@ spec:
     - "vault.decort.tech"
   rules:
     - backendRefs:
-        - name: vault-active
+        - name: vault-ui
           port: 8200
       filters:
         - type: RequestHeaderModifier
