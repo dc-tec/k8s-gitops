@@ -60,10 +60,11 @@ spec:
     - backendRefs:
         - name: vault-active
           port: 8200
+          kind: Service
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
-            add:  # Using 'set' to ensure headers are overwritten, not appended
+            set:  # Changed from add to set
               - name: "Host"
                 value: "vault-active.vault-infra.svc"
               - name: "X-Forwarded-For"
@@ -72,3 +73,10 @@ spec:
                 value: "${.source.address}"
               - name: "X-Forwarded-Proto"
                 value: "https"
+              - name: "X-Forwarded-Port"
+                value: "443"
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: "/"
