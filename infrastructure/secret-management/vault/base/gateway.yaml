@@ -74,6 +74,5 @@ spec:
                 value: "https"
               - name: "X-Forwarded-Port"
                 value: "443"
-            add:  # Additional headers that we want to append
               - name: "X-Forwarded-Host"
                 value: "vault.decort.tech"
