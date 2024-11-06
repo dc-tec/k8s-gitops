@@ -4,7 +4,7 @@ metadata:
   name: vault-gateway
   namespace: vault-infra
   annotations:
-    cert-manager.io/cluster-issuer: "cert-manager-staging"  # Change to prod when ready
+    cert-manager.io/cluster-issuer: "cert-manager-prd"
 spec:
   gatewayClassName: cilium
   listeners:
