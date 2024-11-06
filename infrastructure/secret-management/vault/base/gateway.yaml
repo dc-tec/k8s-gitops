@@ -46,3 +46,5 @@ spec:
                 value: "${.source.address}"
               - name: "X-Forwarded-Proto"
                 value: "https"
+              - name: "Host"
+                value: "vault-active.vault-infra.svc"
