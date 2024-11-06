@@ -18,12 +18,12 @@ spec:
     - name: https
       hostname: vault.decort.tech
       port: 443
-      protocol: TLS 
+      protocol: HTTPS 
       allowedRoutes:
         namespaces:
           from: All
       tls:
-        mode: Passthrough
+        mode: Terminate  
         certificateRefs:
           - name: vault-tls 
 ---
@@ -64,9 +64,7 @@ spec:
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
-            set:  # Changed from add to set
-              - name: "Host"
-                value: "vault-active.vault-infra.svc"
+            set:
               - name: "X-Forwarded-For"
                 value: "${.source.address}"
               - name: "X-Real-IP"
@@ -75,6 +73,8 @@ spec:
                 value: "https"
               - name: "X-Forwarded-Port"
                 value: "443"
+              - name: "X-Forwarded-Host"
+                value: "${.host}"
         - type: URLRewrite
           urlRewrite:
             path:
