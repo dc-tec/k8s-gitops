@@ -88,8 +88,8 @@ server:
           x_forwarded_for_reject_not_present = "false"
 
           # Client certificate settings
-          tls_require_and_verify_client_cert = "false"
-          tls_disable_client_certs = "true"
+          tls_require_and_verify_client_cert = "true"
+          tls_disable_client_certs = "false"
 
         }
 
