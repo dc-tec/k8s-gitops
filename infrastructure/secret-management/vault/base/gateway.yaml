@@ -5,9 +5,6 @@ metadata:
   namespace: vault-infra
   annotations:
     cert-manager.io/cluster-issuer: "cert-manager-staging"
-    cert-manager.io/common-name: "vault.decort.tech"
-    cert-manager.io/usages: "digital signature,key encipherment,server auth,client auth"
-    cert-manager.io/alt-names: "vault.vault-infra.svc.cluster.local,vault.vault-infra.svc,vault-infra,vault,*.vault-internal,*.vault-internal.vault-infra.svc.cluster.local,*.vault-internal.vault-infra.svc"
 spec:
   gatewayClassName: cilium
   listeners:

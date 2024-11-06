@@ -31,11 +31,11 @@ server:
   
   # Set the readiness probe for the vault server
   readinessProbe:
-    enabled: false
+    enabled: true
     path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
     scheme: HTTPS
   livenessProbe:
-    enabled: false
+    enabled: true
     path: "/v1/sys/health?sealedcode=204&standbycode=204&uninitcode=204"
     scheme: HTTPS
     initialDelaySeconds: 60
@@ -43,14 +43,14 @@ server:
   # Set the extra volumes for the vault server these will be exposed in the path /vault/userconfig/<name>
   extraVolumes:
     - type: secret
-      name: vault-tls
-    #- type: secret
-    #  name: vault-ca-tls
+      name: vault-internal-tls
+    - type: secret
+      name: vault-ca-tls
 
   extraEnvironmentVars:
-    #VAULT_CACERT: /vault/userconfig/vault-ca-tls/ca.crt
-    VAULT_TLS_CERT: /vault/userconfig/vault-tls/tls.crt
-    VAULT_TLS_KEY: /vault/userconfig/vault-tls/tls.key
+    VAULT_CACERT: /vault/userconfig/vault-ca-tls/ca.crt
+    VAULT_TLS_CERT: /vault/userconfig/vault-internal-tls/tls.crt
+    VAULT_TLS_KEY: /vault/userconfig/vault-internal-tls/tls.key
 
   dataStorage:
     enabled: true
@@ -78,16 +78,23 @@ server:
           address = "[::]:8200"
           cluster_address = "[::]:8201"
 
-          tls_cert_file = "/vault/userconfig/vault-tls/tls.crt"
-          tls_key_file = "/vault/userconfig/vault-tls/tls.key"
+
+          tls_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
+          tls_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
 
           # X-Forwarded-For configuration
-          x_forwarded_for_authorized_addrs = "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          x_forwarded_for_authorized_addrs = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
           x_forwarded_for_reject_not_authorized = "false"
           x_forwarded_for_reject_not_present = "false"
 
+          # Client certificate settings
           tls_require_and_verify_client_cert = "false"
           tls_disable_client_certs = "true"
+
+        }
+
+        service_registration "kubernetes" {
+          namespace      = "vault-infra"
         }
 
         storage "raft" {
@@ -95,21 +102,23 @@ server:
         
           retry_join {
             leader_api_addr = "https://vault-0.vault-internal:8200"
-            # No CA needed as Let's Encrypt is trusted
-            leader_client_cert_file = "/vault/userconfig/vault-tls/tls.crt"
-            leader_client_key_file = "/vault/userconfig/vault-tls/tls.key"
+            leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
+            leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
+            leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
           }
     
           retry_join {
             leader_api_addr = "https://vault-1.vault-internal:8200"
-            leader_client_cert_file = "/vault/userconfig/vault-tls/tls.crt"
-            leader_client_key_file = "/vault/userconfig/vault-tls/tls.key"
+            leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
+            leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
+            leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
           }
     
           retry_join {
             leader_api_addr = "https://vault-2.vault-internal:8200"
-            leader_client_cert_file = "/vault/userconfig/vault-tls/tls.crt"
-            leader_client_key_file = "/vault/userconfig/vault-tls/tls.key"
+            leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
+            leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
+            leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
           }
         }
 
