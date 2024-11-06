@@ -65,7 +65,7 @@ spec:
           requestHeaderModifier:
             add:  # Using 'set' to ensure headers are overwritten, not appended
               - name: "Host"
-                value: "${.host}"
+                value: "vault-active.vault-infra.svc"
               - name: "X-Forwarded-For"
                 value: "${.source.address}"
               - name: "X-Real-IP"
