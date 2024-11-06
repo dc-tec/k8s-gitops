@@ -73,7 +73,7 @@ spec:
                 value: "https"
               - name: "X-Forwarded-Port"
                 value: "443"
-              - name: "X-Forwarded-Host"
+              - name: "Host"
                 value: "${.host}"
         - type: URLRewrite
           urlRewrite:
