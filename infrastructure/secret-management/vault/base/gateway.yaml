@@ -18,12 +18,12 @@ spec:
     - name: https
       hostname: vault.decort.tech
       port: 443
-      protocol: HTTPS 
+      protocol: TLS 
       allowedRoutes:
         namespaces:
           from: All
       tls:
-        mode: Terminate  
+        mode: Passthrough
         certificateRefs:
           - name: vault-tls 
 ---
