@@ -31,11 +31,11 @@ server:
   
   # Set the readiness probe for the vault server
   readinessProbe:
-    enabled: false
+    enabled: true
     path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
     scheme: HTTPS
   livenessProbe:
-    enabled: false
+    enabled: true
     path: "/v1/sys/health?sealedcode=204&standbycode=204&uninitcode=204"
     scheme: HTTPS
     initialDelaySeconds: 60
