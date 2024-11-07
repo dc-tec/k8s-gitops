@@ -77,13 +77,6 @@ spec:
     - backendRefs:
         - name: vault-active
           port: 8200
-          # Add this to indicate TLS backend
-          backendRef:
-            kind: Service
-            name: vault-active
-            port: 8200
-            tls:
-              enabled: true
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
