@@ -72,7 +72,7 @@ server:
       config: |
         ui = true
         cluster_name = "prd-dct-vault"
-        api_addr = "https://vault.decort.tech"
+        api_addr = "http://POD_IP:8200"
       
         listener "tcp" {
           tls_disable = 0
@@ -80,19 +80,8 @@ server:
           cluster_address = "[::]:8201"
 
           tls_client_ca_file = "/vault/userconfig/vault-ca-tls/ca.crt"
-
           tls_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           tls_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
-
-          # X-Forwarded-For configuration
-          x_forwarded_for_authorized_addrs = "0.0.0.0/0"
-          x_forwarded_for_reject_not_authorized = "false"
-          x_forwarded_for_reject_not_present = "false"
-          x_forwarded_for_hop_skips = 1
-
-          # Client certificate settings
-          tls_require_and_verify_client_cert = "true"
-          tls_disable_client_certs = "false"
         }
 
         service_registration "kubernetes" {
@@ -104,6 +93,7 @@ server:
         
           retry_join {
             leader_api_addr = "https://vault-0.vault-internal:8200"
+            leader_tls_servername = "vault"
             leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
             leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
@@ -111,6 +101,7 @@ server:
     
           retry_join {
             leader_api_addr = "https://vault-1.vault-internal:8200"
+            leader_tls_servername = "vault"
             leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
             leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
@@ -118,9 +109,19 @@ server:
     
           retry_join {
             leader_api_addr = "https://vault-2.vault-internal:8200"
+            leader_tls_servername = "vault"
             leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
             leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
+          }
+
+          autopilot {
+            cleanup_dead_servers = "true"
+            last_contact_threshold = "200ms"
+            last_contact_failure_threshold = "10m"
+            max_trailing_logs = 250000
+            min_quorum = 3
+            server_stabilization_time = "10s"
           }
         }
 

@@ -22,7 +22,7 @@ spec:
   renewBefore: 8760h # 1 year
   subject:
     organizations:
-      - system:nodes
+      - deCort.tech
     countries:
       - NL
   keystores:
@@ -66,7 +66,7 @@ spec:
     rotationPolicy: Always
   subject:
     organizations:
-      - system:nodes
+      - deCort.tech
     countries:
       - NL
   commonName: system:node:*.vault-infra.svc.cluster.local
