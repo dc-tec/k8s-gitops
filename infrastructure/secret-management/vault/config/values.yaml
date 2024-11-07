@@ -82,11 +82,6 @@ server:
           tls_client_ca_file = "/vault/userconfig/vault-ca-tls/ca.crt"
           tls_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
           tls_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
-
-          x_forwarded_for_authorized_addrs = "10.0.0.0/8"
-          x_forwarded_for_reject_not_authorized = "false"
-          x_forwarded_for_reject_not_present = "false"
-          x_forwarded_for_hop_skips = 1
         }
 
         service_registration "kubernetes" {

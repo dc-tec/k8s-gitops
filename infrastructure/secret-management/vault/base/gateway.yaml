@@ -3,8 +3,6 @@ kind: Gateway
 metadata:
   name: vault-gateway
   namespace: vault-infra
-  annotations:
-    cert-manager.io/cluster-issuer: cert-manager-staging
 spec:
   gatewayClassName: cilium
   listeners:
@@ -18,14 +16,12 @@ spec:
     - name: https
       hostname: vault.decort.tech
       port: 443
-      protocol: HTTPS
+      protocol: TLS
       allowedRoutes:
         namespaces:
           from: All
       tls:
-        mode: Terminate
-        certificateRefs:
-          - name: vault-tls
+        mode: Passthrough
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -45,25 +41,8 @@ spec:
             scheme: https
             statusCode: 301
 ---
-apiVersion: gateway.networking.k8s.io/v1alpha3
-kind: BackendTLSPolicy
-metadata:
-  name: vault-backend-tls
-  namespace: vault-infra
-spec:
-  targetRefs:
-    - group: ""
-      kind: Service
-      name: vault-active
-  validation:
-    hostname: vault.vault-infra.svc
-    caCertificateRefs:
-      - group: ""
-        kind: ConfigMap
-        name: vault-ca-configmap
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
 metadata:
   name: vault-route
   namespace: vault-infra
@@ -77,14 +56,4 @@ spec:
     - backendRefs:
         - name: vault-active
           port: 8200
-      filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            set:
-              - name: "X-Forwarded-For"
-                value: "${.source.address}"
-              - name: "X-Real-IP"
-                value: "${.source.address}"
-              - name: "X-Forwarded-Proto"
-                value: "https"
 

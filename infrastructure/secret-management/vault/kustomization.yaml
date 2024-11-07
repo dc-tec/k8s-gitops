@@ -6,7 +6,6 @@ resources:
   - base/gateway.yaml
   - base/certificate.yaml
   - base/vault-approver-rbac.yaml
-  - base/ca_configmap.yaml
   - config/secrets/pkcs12-secret.yaml
 
 helmCharts:
