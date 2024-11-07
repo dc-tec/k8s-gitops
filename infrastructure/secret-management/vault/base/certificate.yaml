@@ -72,6 +72,7 @@ spec:
   commonName: system:node:*.vault-infra.svc.cluster.local
   dnsNames:
     - vault.vault-infra.svc.cluster.local
+    - vault.decort.tech
     - vault.vault-infra.svc
     - vault-infra
     - vault
