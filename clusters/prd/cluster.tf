@@ -150,7 +150,7 @@ data "helm_template" "cilium" {
   name       = "cilium"
   repository = "https://helm.cilium.io/"
   chart      = "cilium"
-  version    = "1.15.5"
+  version    = "1.15.10"
   namespace  = "kube-system"
 
 
@@ -229,5 +229,13 @@ data "helm_template" "cilium" {
   set {
     name  = "gatewayAPI.enabled"
     value = "true"
+  }
+  set {
+    name  = "nodePort.enabled"
+    value = "true"
+  }
+  set {
+    name  = "loadBalancer.l7.backend"
+    value = "envoy"
   }
 }
