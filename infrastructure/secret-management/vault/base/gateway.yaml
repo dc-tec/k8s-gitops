@@ -56,7 +56,7 @@ spec:
       kind: Service
       name: vault-active
   validation:
-    hostname: system:node:*.vault-infra.svc.cluster.local
+    hostname: vault.vault-infra.svc.cluster.local
     caCertificateRefs:
       - group: ""
         kind: Secret
