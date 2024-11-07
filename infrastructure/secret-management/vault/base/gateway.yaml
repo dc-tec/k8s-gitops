@@ -56,11 +56,11 @@ spec:
       kind: Service
       name: vault-active
   validation:
-    hostname: vault
+    hostname: vault.vault-infra.svc
     caCertificateRefs:
       - group: ""
-        kind: Secret
-        name: vault-ca-tls  # Reference the CA cert, not the leaf cert
+        kind: ConfigMap
+        name: vault-ca-configmap
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
