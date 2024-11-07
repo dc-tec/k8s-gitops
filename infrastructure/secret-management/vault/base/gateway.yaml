@@ -51,7 +51,7 @@ metadata:
   name: vault-backend-tls
   namespace: vault-infra
 spec:
-  targetRef:
+  targetRefs:
     group: ""
     kind: Service
     name: vault-active
