@@ -56,7 +56,7 @@ spec:
       kind: Service
       name: vault-active
   validation:
-    hostname: "*.vault-internal"
+    hostname: vault-0.vault-internal
     caCertificateRefs:
       - group: ""
         kind: Secret
