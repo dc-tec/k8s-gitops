@@ -72,6 +72,7 @@ server:
       config: |
         ui = true
         cluster_name = "prd-dct-vault"
+        api_addr = "https://vault.decort.tech"
       
         listener "tcp" {
           tls_disable = 0
