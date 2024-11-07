@@ -45,6 +45,23 @@ spec:
             scheme: https
             statusCode: 301
 ---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: BackendTLSPolicy
+metadata:
+  name: vault-backend-tls
+  namespace: vault-infra
+spec:
+  targetRef:
+    group: ""
+    kind: Service
+    name: vault-active
+  tls:
+    hostname: vault.vault-infra.svc
+    caCertificateRefs:
+      - group: ""
+        kind: Secret
+        name: vault-ca-tls  # Reference the CA cert, not the leaf cert
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -60,6 +77,13 @@ spec:
     - backendRefs:
         - name: vault-active
           port: 8200
+          # Add this to indicate TLS backend
+          backendRef:
+            kind: Service
+            name: vault-active
+            port: 8200
+            tls:
+              enabled: true
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
@@ -70,3 +94,5 @@ spec:
                 value: "${.source.address}"
               - name: "X-Forwarded-Proto"
                 value: "https"
+              - name: "Host"
+                value: "${.host}"
