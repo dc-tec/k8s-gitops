@@ -52,9 +52,9 @@ metadata:
   namespace: vault-infra
 spec:
   targetRefs:
-    group: ""
-    kind: Service
-    name: vault-active
+    - group: ""
+      kind: Service
+      name: vault-active
   validation:
     hostname: vault.vault-infra.svc
     caCertificateRefs:
