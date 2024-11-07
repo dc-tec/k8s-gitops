@@ -56,7 +56,7 @@ spec:
       kind: Service
       name: vault-active
   validation:
-    hostname: vault.vault-infra.svc
+    hostname: vault.decort.tech
     caCertificateRefs:
       - group: ""
         kind: Secret
@@ -87,5 +87,4 @@ spec:
                 value: "${.source.address}"
               - name: "X-Forwarded-Proto"
                 value: "https"
-              - name: "Host"
-                value: "${.host}"
+
