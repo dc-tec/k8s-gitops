@@ -38,3 +38,5 @@ repo-secrets.yaml
 
 # ISO needed or create by packer
 *.iso
+
+.temp
