@@ -24,13 +24,13 @@ control_nodes = {
 }
 
 worker_nodes = {
-  worker_01 = {
-    node_name = "kub-worker-01"
+  worker_04 = {
+    node_name = "kub-worker-04"
   }
-  worker_02 = {
-    node_name = "kub-worker-02"
+  worker_05 = {
+    node_name = "kub-worker-05"
   }
-  worker_03 = {
-    node_name = "kub-worker-03"
+  worker_06 = {
+    node_name = "kub-worker-06"
   }
 }

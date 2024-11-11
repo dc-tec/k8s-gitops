@@ -21,7 +21,13 @@ resource "libvirt_volume" "worker_node_data_0" {
 
   name   = "${var.cluster_env}-${each.value.node_name}-data0.img"
   format = "qcow2"
-  size   = 50 * 1024 * 1024 * 1024 # 50 GB
+  size   = 200 * 1024 * 1024 * 1024 # 200 GB
+
+  lifecycle {
+    ignore_changes = [
+      size
+    ]
+  }
 }
 
 resource "libvirt_domain" "control_node" {
@@ -110,3 +116,4 @@ resource "libvirt_domain" "worker_node" {
     ]
   }
 }
+
