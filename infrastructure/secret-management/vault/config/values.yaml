@@ -46,11 +46,30 @@ server:
       name: vault-internal-tls
     - type: secret
       name: vault-ca-tls
+    - type: secret
+      name: vault-unseal
 
   extraEnvironmentVars:
     VAULT_CACERT: /vault/userconfig/vault-ca-tls/ca.crt
     VAULT_TLS_CERT: /vault/userconfig/vault-internal-tls/tls.crt
     VAULT_TLS_KEY: /vault/userconfig/vault-internal-tls/tls.key
+
+  extraSecretEnvironmentVars:
+    - envName: VAULT_AZURE_CLIENT_ID
+      secretName: vault-unseal
+      secretKey: client_id
+    - envName: VAULT_AZURE_CLIENT_SECRET
+      secretName: vault-unseal
+      secretKey: client_secret
+    - envName: VAULT_AZURE_TENANT_ID
+      secretName: vault-unseal
+      secretKey: tenant_id
+    - envName: VAULT_AZURE_KEYVAULT_NAME
+      secretName: vault-unseal
+      secretKey: vault_name
+    - envName: VAULT_AZURE_KEYVAULT_KEY_NAME
+      secretName: vault-unseal
+      secretKey: key_name
 
   dataStorage:
     enabled: true
@@ -70,58 +89,66 @@ server:
       setNodeId: true
     
       config: |
-        ui = true
-        cluster_name = "prd-dct-vault"
-        api_addr = "http://POD_IP:8200"
+        ui            = true
+        cluster_name  = "prd-dct-vault"
+        api_addr      = "http://POD_IP:8200"
       
         listener "tcp" {
-          tls_disable = 0
-          address = "[::]:8200"
-          cluster_address = "[::]:8201"
+          tls_disable      = 0
+          address          = "[::]:8200"
+          cluster_address  = "[::]:8201"
 
           tls_client_ca_file = "/vault/userconfig/vault-ca-tls/ca.crt"
-          tls_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-          tls_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
+          tls_cert_file      = "/vault/userconfig/vault-internal-tls/tls.crt"
+          tls_key_file       = "/vault/userconfig/vault-internal-tls/tls.key"
         }
 
         service_registration "kubernetes" {
-          namespace      = "vault-infra"
+          namespace = "vault-infra"
+        }
+
+        seal "azurekeyvault" {
+          client_id       = VAULT_AZURE_CLIENT_ID
+          client_secret   = VAULT_AZURE_CLIENT_SECRET
+          tenant_id       = VAULT_AZURE_TENANT_ID
+          vault_name      = VAULT_AZURE_KEYVAULT_NAME
+          key_name        = VAULT_AZURE_KEYVAULT_KEY_NAME
         }
 
         storage "raft" {
           path = "/vault/data"
         
           retry_join {
-            leader_api_addr = "https://vault-0.vault-internal:8200"
-            leader_tls_servername = "vault"
-            leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
+            leader_api_addr         = "https://vault-active:8200"
+            leader_tls_servername   = "vault"
+            leader_ca_cert_file     = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-            leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
+            leader_client_key_file  = "/vault/userconfig/vault-internal-tls/tls.key"
           }
     
           retry_join {
-            leader_api_addr = "https://vault-1.vault-internal:8200"
-            leader_tls_servername = "vault"
-            leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
+            leader_api_addr         = "https://vault-active:8200"
+            leader_tls_servername   = "vault"
+            leader_ca_cert_file     = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-            leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
+            leader_client_key_file  = "/vault/userconfig/vault-internal-tls/tls.key"
           }
     
           retry_join {
-            leader_api_addr = "https://vault-2.vault-internal:8200"
-            leader_tls_servername = "vault"
-            leader_ca_cert_file = "/vault/userconfig/vault-ca-tls/ca.crt"
+            leader_api_addr         = "https://vault-active:8200"
+            leader_tls_servername   = "vault"
+            leader_ca_cert_file     = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
-            leader_client_key_file = "/vault/userconfig/vault-internal-tls/tls.key"
+            leader_client_key_file  = "/vault/userconfig/vault-internal-tls/tls.key"
           }
 
           autopilot {
-            cleanup_dead_servers = "true"
-            last_contact_threshold = "200ms"
-            last_contact_failure_threshold = "10m"
-            max_trailing_logs = 250000
-            min_quorum = 2
-            server_stabilization_time = "10s"
+            cleanup_dead_servers             = "true"
+            last_contact_threshold           = "200ms"
+            last_contact_failure_threshold   = "10m"
+            max_trailing_logs                = 250000
+            min_quorum                       = 2
+            server_stabilization_time        = "10s"
           }
         }
 
