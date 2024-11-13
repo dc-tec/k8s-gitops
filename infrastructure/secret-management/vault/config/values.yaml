@@ -107,19 +107,13 @@ server:
           namespace = "vault-infra"
         }
 
-        seal "azurekeyvault" {
-          client_id       = "${AZURE_CLIENT_ID}"
-          client_secret   = "${AZURE_CLIENT_SECRET}"
-          tenant_id       = "${AZURE_TENANT_ID}"
-          vault_name      = "${VAULT_AZUREKEYVAULT_NAME}"
-          key_name        = "${VAULT_AZUREKEYVAULT_KEY_NAME}"
-        }
+        seal "azurekeyvault" {}
 
         storage "raft" {
           path = "/vault/data"
         
           retry_join {
-            leader_api_addr         = "https://vault-active:8200"
+            leader_api_addr         = "https://vault-0.vault-internal:8200"
             leader_tls_servername   = "vault"
             leader_ca_cert_file     = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
@@ -127,7 +121,7 @@ server:
           }
     
           retry_join {
-            leader_api_addr         = "https://vault-active:8200"
+            leader_api_addr         = "https://vault-1.vault-internal:8200"
             leader_tls_servername   = "vault"
             leader_ca_cert_file     = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
@@ -135,7 +129,7 @@ server:
           }
     
           retry_join {
-            leader_api_addr         = "https://vault-active:8200"
+            leader_api_addr         = "https://vault-2.vault-internal:8200"
             leader_tls_servername   = "vault"
             leader_ca_cert_file     = "/vault/userconfig/vault-ca-tls/ca.crt"
             leader_client_cert_file = "/vault/userconfig/vault-internal-tls/tls.crt"
