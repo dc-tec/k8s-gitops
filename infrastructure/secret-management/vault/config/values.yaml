@@ -64,7 +64,7 @@ server:
     - envName: AZURE_TENANT_ID
       secretName: vault-unseal
       secretKey: tenant_id
-    - envName: VAULT_AZUREKEYVAULT_NAME
+    - envName: VAULT_AZUREKEYVAULT_VAULT_NAME
       secretName: vault-unseal
       secretKey: vault_name
     - envName: VAULT_AZUREKEYVAULT_KEY_NAME
