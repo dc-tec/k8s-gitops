@@ -54,23 +54,15 @@ server:
     VAULT_TLS_CERT: /vault/userconfig/vault-internal-tls/tls.crt
     VAULT_TLS_KEY: /vault/userconfig/vault-internal-tls/tls.key
     VAULT_SEAL_TYPE: azurekeyvault
+    AZURE_CLIENT_ID: 242197e5-231a-48a8-8d49-99afdd599fbf
+    AZURE_TENANT_ID: 9efbb2a3-8e4f-4a4b-ae0b-e53fe5049a2a
+    VAULT_AZUREKEYVAULT_VAULT_NAME: kv-lab-infra-prd-westeu
+    VAULT_AZUREKEYVAULT_KEY_NAME: vault-key
 
   extraSecretEnvironmentVars:
-    - envName: AZURE_CLIENT_ID
-      secretName: vault-unseal
-      secretKey: client_id
     - envName: AZURE_CLIENT_SECRET
       secretName: vault-unseal
       secretKey: client_secret
-    - envName: AZURE_TENANT_ID
-      secretName: vault-unseal
-      secretKey: tenant_id
-    - envName: VAULT_AZUREKEYVAULT_VAULT_NAME
-      secretName: vault-unseal
-      secretKey: vault_name
-    - envName: VAULT_AZUREKEYVAULT_KEY_NAME
-      secretName: vault-unseal
-      secretKey: vault_key
 
   dataStorage:
     enabled: true
