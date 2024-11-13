@@ -108,11 +108,11 @@ server:
         }
 
         seal "azurekeyvault" {
-          client_id       = VAULT_AZURE_CLIENT_ID
-          client_secret   = VAULT_AZURE_CLIENT_SECRET
-          tenant_id       = VAULT_AZURE_TENANT_ID
-          vault_name      = VAULT_AZURE_KEYVAULT_NAME
-          key_name        = VAULT_AZURE_KEYVAULT_KEY_NAME
+          client_id       = "${VAULT_AZURE_CLIENT_ID}"
+          client_secret   = "${VAULT_AZURE_CLIENT_SECRET}"
+          tenant_id       = "${VAULT_AZURE_TENANT_ID}"
+          vault_name      = "${VAULT_AZURE_KEYVAULT_NAME}"
+          key_name        = "${VAULT_AZURE_KEYVAULT_KEY_NAME}"
         }
 
         storage "raft" {
