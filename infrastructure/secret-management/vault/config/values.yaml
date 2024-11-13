@@ -53,6 +53,7 @@ server:
     VAULT_CACERT: /vault/userconfig/vault-ca-tls/ca.crt
     VAULT_TLS_CERT: /vault/userconfig/vault-internal-tls/tls.crt
     VAULT_TLS_KEY: /vault/userconfig/vault-internal-tls/tls.key
+    VAULT_SEAL_TYPE: azurekeyvault
 
   extraSecretEnvironmentVars:
     - envName: AZURE_CLIENT_ID
@@ -106,8 +107,6 @@ server:
         service_registration "kubernetes" {
           namespace = "vault-infra"
         }
-
-        seal "azurekeyvault" {}
 
         storage "raft" {
           path = "/vault/data"
