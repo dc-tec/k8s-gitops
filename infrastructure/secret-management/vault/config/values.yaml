@@ -69,7 +69,7 @@ server:
       secretKey: vault_name
     - envName: VAULT_AZURE_KEYVAULT_KEY_NAME
       secretName: vault-unseal
-      secretKey: key_name
+      secretKey: vault_key
 
   dataStorage:
     enabled: true
