@@ -107,13 +107,7 @@ server:
           namespace = "vault-infra"
         }
 
-        seal "azurekeyvault" {
-          client_id       = "${AZURE_CLIENT_ID}"
-          client_secret   = "${AZURE_CLIENT_SECRET}"
-          tenant_id       = "${AZURE_TENANT_ID}"
-          vault_name      = "${VAULT_AZUREKEYVAULT_NAME}"
-          key_name        = "${VAULT_AZUREKEYVAULT_KEY_NAME}"
-        }
+        seal "azurekeyvault" {}
 
         storage "raft" {
           path = "/vault/data"
