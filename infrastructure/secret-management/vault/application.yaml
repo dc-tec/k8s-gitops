@@ -9,7 +9,7 @@ spec:
   project: infrastructure
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
-    targetRevision: main
+    targetRevision: vault-unseal
     path: infrastructure/secret-management/vault
   destination:
     namespace: vault-infra
