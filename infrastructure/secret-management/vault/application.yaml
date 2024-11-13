@@ -9,10 +9,10 @@ spec:
   project: infrastructure
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
-    targetRevision: vault-unseal
+    targetRevision: main
     path: infrastructure/secret-management/vault
   destination:
-    namespace: main
+    namespace: vault-infra
     server: https://kubernetes.default.svc
   ignoreDifferences:
   - group: admissionregistration.k8s.io
