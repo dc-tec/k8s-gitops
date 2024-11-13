@@ -12,7 +12,7 @@ spec:
     targetRevision: vault-unseal
     path: infrastructure/secret-management/vault
   destination:
-    namespace: vault-infra
+    namespace: main
     server: https://kubernetes.default.svc
   ignoreDifferences:
   - group: admissionregistration.k8s.io

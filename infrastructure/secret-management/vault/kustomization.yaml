@@ -13,7 +13,7 @@ helmCharts:
   - name: vault
     includeCRDs: true
     releaseName: vault
-    namespace: main
+    namespace: vault-infra
     version: 0.28.1
     repo: https://helm.releases.hashicorp.com
     valuesFile: config/values.yaml
