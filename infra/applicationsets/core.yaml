@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: core-infrastructure
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: argocd
+            namespace: argocd
+            value: apps/argocd
+            syncWave: 0
+          - name: sealed-secrets
+            namespace: kube-system
+            value: apps/sealed-secrets
+            syncWave: 0
+          - name: cert-manager
+            namespace: cert-manager
+            value: apps/cert-manager
+            syncWave: 1
+          - name: longhorn
+            namespace: longhorn-system
+            value: apps/longhorn
+    - git:
+        repoURL: git@github.com/dc-tec/k8s-gitops.git
+        revision: main
+        path: apps
