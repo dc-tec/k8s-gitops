@@ -40,3 +40,4 @@ repo-secrets.yaml
 *.iso
 
 .temp
+sealed-secrets-key-plain.yaml
