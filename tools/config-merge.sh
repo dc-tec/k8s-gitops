@@ -5,6 +5,9 @@ CLUSTER_DIR="$PWD/clusters"
 CONFIG_DIR="$HOME/.kube/talos-clusters"
 MERGED_DIR="$CONFIG_DIR/merged"
 
+# Remove existing talos-clusters directory to ensure fresh configs
+rm -rf "$CONFIG_DIR"
+
 # Create directories if they don't exist
 mkdir -p "$CONFIG_DIR/prd" "$CONFIG_DIR/tst" "$CONFIG_DIR/dev" "$MERGED_DIR"
 
