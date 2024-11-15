@@ -31,8 +31,7 @@ resource "libvirt_volume" "worker_node_data_0" {
 }
 
 resource "libvirt_domain" "control_node" {
-  depends_on = [libvirt_network.k8s]
-  for_each   = var.control_nodes
+  for_each = var.control_nodes
 
   name     = "${var.cluster_env}-${each.value.node_name}"
   machine  = "pc-q35-8.2"
@@ -71,8 +70,7 @@ resource "libvirt_domain" "control_node" {
 }
 
 resource "libvirt_domain" "worker_node" {
-  depends_on = [libvirt_network.k8s]
-  for_each   = var.worker_nodes
+  for_each = var.worker_nodes
 
   name     = "${var.cluster_env}-${each.value.node_name}"
   machine  = "pc-q35-8.2"
