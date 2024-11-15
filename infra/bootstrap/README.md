@@ -7,6 +7,7 @@ This directory contains the bootstrap configuration for setting up a new cluster
 - kubectl configured with cluster access
 - SOPS installed
 - Age key configured (export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt)
+  - In a DR scenario the age keys.txt and private key can be retrieved from Azure Key Vault.
 
 ## Components
 
