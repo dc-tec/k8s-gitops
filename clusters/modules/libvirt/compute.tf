@@ -21,7 +21,7 @@ resource "libvirt_volume" "worker_node_data_0" {
 
   name   = "${var.cluster_env}-${each.value.node_name}-data0.img"
   format = "qcow2"
-  size   = 200 * 1024 * 1024 * 1024 # 200 GB
+  size   = each.value.data_disk_size != null ? each.value.data_disk_size : 200 * 1024 * 1024 * 1024 # 200 GB
 
   lifecycle {
     ignore_changes = [
@@ -38,8 +38,8 @@ resource "libvirt_domain" "control_node" {
   machine  = "pc-q35-8.2"
   firmware = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
 
-  vcpu   = 2
-  memory = 4 * 1024 # 4 GB
+  vcpu   = each.value.vcpu != null ? each.value.vcpu : 2
+  memory = each.value.memory != null ? each.value.memory : 4 * 1024 # 4 GB
 
   cpu {
     mode = "host-passthrough"
@@ -78,8 +78,8 @@ resource "libvirt_domain" "worker_node" {
   machine  = "pc-q35-8.2"
   firmware = "/run/libvirt/nix-ovmf/OVMF_CODE.fd"
 
-  vcpu   = 2
-  memory = 8 * 1024 # 8 GB
+  vcpu   = each.value.vcpu != null ? each.value.vcpu : 2
+  memory = each.value.memory != null ? each.value.memory : 8 * 1024 # 8 GB
 
   cpu {
     mode = "host-passthrough"
