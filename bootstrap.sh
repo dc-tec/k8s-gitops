@@ -35,8 +35,3 @@ kubectl apply -k infra/bootstrap/argocd
 # Wait for ArgoCD to be ready
 echo "Waiting for ArgoCD to be ready..."
 kubectl wait --for=condition=available --timeout=300s deployment/argocd-server -n argocd
-
-# Apply the root applications
-echo "Applying the rootapplications..."
-kubectl apply -f infra/bootstrap/argocd/application.yaml
-kubectl apply -f infra/bootstrap/sealed-secrets/application.yaml

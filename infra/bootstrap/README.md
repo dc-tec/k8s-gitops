@@ -65,12 +65,3 @@ After successful bootstrap:
 1. ArgoCD will be available at the configured URL
 2. Login using configured OIDC provider
 3. ArgoCD will manage all subsequent deployments through GitOps
-
-## Application Structure
-
-The bootstrap process sets up two root applications:
-
-1. ArgoCD (reference `infra/bootstrap/argocd/application.yaml`)
-2. Sealed Secrets (reference `infra/bootstrap/sealed-secrets/application.yaml`)
-
-These applications are configured to self-heal and automatically sync from the git repository.
