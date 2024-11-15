@@ -60,8 +60,8 @@ variable "control_nodes" {
   description = "Control node configuration"
   type = map(object({
     node_name = string
-    vcpu      = number
-    memory    = number
+    vcpu      = optional(number)
+    memory    = optional(number)
   }))
 }
 
@@ -69,9 +69,9 @@ variable "worker_nodes" {
   description = "Worker node configuration"
   type = map(object({
     node_name      = string
-    vcpu           = number
-    memory         = number
-    data_disk_size = number
+    vcpu           = optional(number)
+    memory         = optional(number)
+    data_disk_size = optional(number)
   }))
 }
 
