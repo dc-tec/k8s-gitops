@@ -8,6 +8,8 @@
 
 The "prod" cluster is deployed using Terraform, see [cluster config](./clusters/prd/terraform/) and makes use of the Talos Kubernetes distribution. A base image is created using packer, see [packer config](./configs/packer).
 
+For testing purposes, the "tst" cluster can be deployed using Terraform, see [cluster config](./clusters/tst/terraform/).
+
 ## Hardware
 
 The "prod" cluster runs on a single host with the following specs:
@@ -19,25 +21,42 @@ The "prod" cluster runs on a single host with the following specs:
 | Video     | RTX 2060 Super   |
 | OS        | NixOS 24.11      |
 
-## GitOps
+## Bootstrap
+
+The cluster is bootstrapped using a script that sets up the core components:
+
+- Gateway API for ingress
+- Sealed Secrets for secret management
+- ArgoCD for GitOps deployment
+
+See [bootstrap documentation](reference `infra/bootstrap/README.md`) for detailed setup instructions.
+
+## Core Components
 
 ### ArgoCD
 
-Applications and services inside of the cluster are deployed via ArgoCD using Kustomize. This makes deployment very flexibel, but also ensures a consistent way of deploying resources.
+ArgoCD is configured with:
 
-ArgoCD is internally exposed through the Kubernetes Gateway API, using cilium.
-
-EntraID is used to authenticate on the Web UI.
+- OIDC authentication using EntraID
+- Gateway API ingress
+- Custom RBAC configuration (reference `infra/bootstrap/argocd/overlays/argocd-rbac-cm.yaml`)
+- Project structure for applications and infrastructure
 
 ### Secret Management
 
-In order to work with secrets inside of the cluster two different services are used:
+Two-tier approach to secret management:
 
-- Sealed Secrets
-- External Secrets using Azure Keyvault
+1. Sealed Secrets
 
-See [secret management](./docs/secret-management.md) how to create secrets using sealed-secrets.
+   - Used for bootstrap and initial secrets
+   - Enables encrypted secrets in git
+   - See [sealed-secrets configuration](reference `infra/bootstrap/sealed-secrets/kustomization.yaml`)
 
-### Certificate Management
+2. External Secrets (post-bootstrap) and HashiCorp Vault
+   - Integration with Azure Key Vault
+   - Used for application secrets
+   - Managed by ArgoCD
 
-In order to provide services with a valid TLS certificate, `Cert-Manager` is used in DNS-01 challenge mode using Cloudflare DNS.
+## How to deploy
+
+See [justfile](./justfile) for deployment instructions.

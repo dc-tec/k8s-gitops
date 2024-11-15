@@ -60,8 +60,4 @@ Run the bootstrap script from the root of the repository.
 
 ## Post-Installation
 
-After successful bootstrap:
-
-1. ArgoCD will be available at the configured URL
-2. Login using configured OIDC provider
-3. ArgoCD will manage all subsequent deployments through GitOps
+After successful bootstrap, the application sets can be deployed on the cluster.
