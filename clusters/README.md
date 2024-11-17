@@ -1,5 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-
 # Talos Kubernetes Cluster Infrastructure
 
 This repository contains the Terraform configuration for managing Talos-based Kubernetes clusters across different environments.
@@ -65,50 +64,54 @@ talosctl cluster create --talosconfig=env/dev/talosconfig.yaml
 
 ## Requirements
 
-| Name                                                                     | Version |
-| ------------------------------------------------------------------------ | ------- |
-| <a name="requirement_terraform"></a> [terraform](#requirement_terraform) | 1.9.8   |
-| <a name="requirement_helm"></a> [helm](#requirement_helm)                | 2.16.1  |
-| <a name="requirement_libvirt"></a> [libvirt](#requirement_libvirt)       | 0.8.1   |
-| <a name="requirement_talos"></a> [talos](#requirement_talos)             | 0.6.1   |
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.9.8 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | 2.16.1 |
+| <a name="requirement_libvirt"></a> [libvirt](#requirement\_libvirt) | 0.8.1 |
+| <a name="requirement_talos"></a> [talos](#requirement\_talos) | 0.6.1 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_libvirt"></a> [libvirt](#provider\_libvirt) | 0.8.1 |
 
 ## Modules
 
-| Name                                                                       | Source            | Version |
-| -------------------------------------------------------------------------- | ----------------- | ------- |
-| <a name="module_talos_cluster"></a> [talos_cluster](#module_talos_cluster) | ./modules/libvirt | n/a     |
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_talos_cluster"></a> [talos\_cluster](#module\_talos\_cluster) | ./modules/libvirt | n/a |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [libvirt_network.k8s](https://registry.terraform.io/providers/dmacvicar/libvirt/0.8.1/docs/resources/network) | resource |
 
 ## Inputs
 
-| Name                                                                                          | Description                                        | Type                                                     | Default        | Required |
-| --------------------------------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------------- | -------------- | :------: |
-| <a name="input_base_volume"></a> [base_volume](#input_base_volume)                            | The base volume for our Talos VM's                 | `string`                                                 | `"talos-base"` |    no    |
-| <a name="input_cluster_domain"></a> [cluster_domain](#input_cluster_domain)                   | The domain kubernetes cluster domain name          | `string`                                                 | n/a            |   yes    |
-| <a name="input_cluster_endpoint"></a> [cluster_endpoint](#input_cluster_endpoint)             | The endpoint for the kubernetes cluster            | `string`                                                 | n/a            |   yes    |
-| <a name="input_cluster_env"></a> [cluster_env](#input_cluster_env)                            | The environment for the kubernetes cluster         | `string`                                                 | n/a            |   yes    |
-| <a name="input_cluster_gateway"></a> [cluster_gateway](#input_cluster_gateway)                | The gateway for the kubernetes cluster             | `string`                                                 | n/a            |   yes    |
-| <a name="input_cluster_name"></a> [cluster_name](#input_cluster_name)                         | The name of the cluster                            | `string`                                                 | n/a            |   yes    |
-| <a name="input_cluster_network"></a> [cluster_network](#input_cluster_network)                | The network address for the kubernetes cluster     | `string`                                                 | n/a            |   yes    |
-| <a name="input_cluster_network_name"></a> [cluster_network_name](#input_cluster_network_name) | The name of the network for the kubernetes cluster | `string`                                                 | n/a            |   yes    |
-| <a name="input_cluster_vip"></a> [cluster_vip](#input_cluster_vip)                            | The virtual IP for the kubernetes cluster          | `string`                                                 | n/a            |   yes    |
-| <a name="input_control_nodes"></a> [control_nodes](#input_control_nodes)                      | Control node configuration                         | <pre>map(object({<br/> node_name = string<br/> }))</pre> | n/a            |   yes    |
-| <a name="input_worker_nodes"></a> [worker_nodes](#input_worker_nodes)                         | Worker node configuration                          | <pre>map(object({<br/> node_name = string<br/> }))</pre> | n/a            |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_base_volume"></a> [base\_volume](#input\_base\_volume) | The base volume for our Talos VM's | `string` | `"talos-base"` | no |
+| <a name="input_cluster_domain"></a> [cluster\_domain](#input\_cluster\_domain) | The domain kubernetes cluster domain name | `string` | n/a | yes |
+| <a name="input_cluster_endpoint"></a> [cluster\_endpoint](#input\_cluster\_endpoint) | The endpoint for the kubernetes cluster | `string` | n/a | yes |
+| <a name="input_cluster_env"></a> [cluster\_env](#input\_cluster\_env) | The environment for the kubernetes cluster | `string` | n/a | yes |
+| <a name="input_cluster_gateway"></a> [cluster\_gateway](#input\_cluster\_gateway) | The gateway for the kubernetes cluster | `string` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the cluster | `string` | n/a | yes |
+| <a name="input_cluster_network"></a> [cluster\_network](#input\_cluster\_network) | The network address for the kubernetes cluster | `string` | n/a | yes |
+| <a name="input_cluster_network_name"></a> [cluster\_network\_name](#input\_cluster\_network\_name) | The name of the network for the kubernetes cluster | `string` | n/a | yes |
+| <a name="input_cluster_vip"></a> [cluster\_vip](#input\_cluster\_vip) | The virtual IP for the kubernetes cluster | `string` | n/a | yes |
+| <a name="input_control_nodes"></a> [control\_nodes](#input\_control\_nodes) | Control node configuration | <pre>map(object({<br>    node_name = string<br>    vcpu      = optional(number)<br>    memory    = optional(number)<br>  }))</pre> | n/a | yes |
+| <a name="input_worker_nodes"></a> [worker\_nodes](#input\_worker\_nodes) | Worker node configuration | <pre>map(object({<br>    node_name      = string<br>    vcpu           = optional(number)<br>    memory         = optional(number)<br>    data_disk_size = optional(number)<br>  }))</pre> | n/a | yes |
 
 ## Outputs
 
-| Name                                                                       | Description |
-| -------------------------------------------------------------------------- | ----------- |
-| <a name="output_control_nodes"></a> [control_nodes](#output_control_nodes) | n/a         |
-| <a name="output_kubeconfig"></a> [kubeconfig](#output_kubeconfig)          | n/a         |
-| <a name="output_talos_config"></a> [talos_config](#output_talos_config)    | n/a         |
-| <a name="output_worker_nodes"></a> [worker_nodes](#output_worker_nodes)    | n/a         |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_cluster_env"></a> [cluster\_env](#output\_cluster\_env) | The environment for the cluster |
+| <a name="output_control_nodes"></a> [control\_nodes](#output\_control\_nodes) | The control nodes for the cluster |
+| <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | The kubeconfig for the cluster |
+| <a name="output_talos_config"></a> [talos\_config](#output\_talos\_config) | The Talos configuration for the cluster |
+| <a name="output_worker_nodes"></a> [worker\_nodes](#output\_worker\_nodes) | The worker nodes for the cluster |
 <!-- END_TF_DOCS -->
