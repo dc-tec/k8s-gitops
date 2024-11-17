@@ -29,7 +29,7 @@ The cluster is bootstrapped using a script that sets up the core components:
 - Sealed Secrets for secret management
 - ArgoCD for GitOps deployment
 
-See [bootstrap documentation](reference `infra/bootstrap/README.md`) for detailed setup instructions.
+See [bootstrap documentation](infra/bootstrap/README.md) for detailed setup instructions.
 
 ## Core Components
 
@@ -39,7 +39,7 @@ ArgoCD is configured with:
 
 - OIDC authentication using EntraID
 - Gateway API ingress
-- Custom RBAC configuration (reference `infra/bootstrap/argocd/overlays/argocd-rbac-cm.yaml`)
+- [Custom RBAC configuration](infra/bootstrap/argocd/overlays/argocd-rbac-cm.yaml)
 - Project structure for applications and infrastructure
 
 ### Secret Management
@@ -50,7 +50,7 @@ Two-tier approach to secret management:
 
    - Used for bootstrap and initial secrets
    - Enables encrypted secrets in git
-   - See [sealed-secrets configuration](reference `infra/bootstrap/sealed-secrets/kustomization.yaml`)
+   - See [sealed-secrets configuration](infra/bootstrap/sealed-secrets/kustomization.yaml)
 
 2. External Secrets (post-bootstrap) and HashiCorp Vault
    - Integration with Azure Key Vault
