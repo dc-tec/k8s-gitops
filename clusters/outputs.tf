@@ -19,3 +19,8 @@ output "worker_nodes" {
   value       = module.talos_cluster.worker_nodes
   description = "The worker nodes for the cluster"
 }
+
+output "cluster_env" {
+  value       = var.cluster_env
+  description = "The environment for the cluster"
+}
