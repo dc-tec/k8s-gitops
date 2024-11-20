@@ -13,6 +13,6 @@ helmCharts:
     includeCRDs: true
     releaseName: vaultwarden
     namespace: vaultwarden-app
-    version: 0.29.3
+    version: 0.30.1
     repo: https://guerzon.github.io/vaultwarden
     valuesFile: config/values.yaml
