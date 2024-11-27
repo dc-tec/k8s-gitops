@@ -8,7 +8,7 @@ resources:
   - config/secrets/pkcs12-secret.yaml
 
 helmCharts:
-  - name: vault
+  - name: openbao
     includeCRDs: true
     releaseName: openbao
     namespace: openbao-infra
