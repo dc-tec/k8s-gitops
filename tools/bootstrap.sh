@@ -25,14 +25,19 @@ if [ -z "${SOPS_AGE_KEY_FILE:-}" ]; then
     exit 1
 fi
 
+# Parse command-line arguments
+INSTALL_ARGOCD=false
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -argocd|--argocd) INSTALL_ARGOCD=true ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
 # Create required namespaces
 echo "Creating namespaces..."
-kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
 kubectl create namespace kube-system --dry-run=client -o yaml | kubectl apply -f -
-
-# Wait for namespaces
-wait_for_namespace "argocd"
-wait_for_namespace "kube-system"
 
 # Install Gateway API CRDs
 echo "Installing Gateway API CRDs..."
@@ -68,15 +73,19 @@ kubectl delete pod -n kube-system -l name=sealed-secrets-controller
 echo "Waiting for sealed-secrets controller to be ready..."
 kubectl wait --for=condition=ready --timeout=300s pod -l name=sealed-secrets-controller -n kube-system
 
-# Install ArgoCD
-echo "Installing ArgoCD..."
-kubectl apply -k infra/bootstrap/argocd
+# Install ArgoCD if requested
+if [ "$INSTALL_ARGOCD" = true ]; then
+    echo "Installing ArgoCD..."
+    kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
+    wait_for_namespace "argocd"
+    kubectl apply -k infra/bootstrap/argocd
 
-# Wait for critical ArgoCD components
-echo "Waiting for ArgoCD components..."
-kubectl wait --for=condition=available --timeout=300s deployment/argocd-server -n argocd
-kubectl wait --for=condition=available --timeout=300s deployment/argocd-repo-server -n argocd
-kubectl wait --for=condition=available --timeout=300s deployment/argocd-applicationset-controller -n argocd
-kubectl wait --for=condition=available --timeout=300s deployment/argocd-redis -n argocd
+    # Wait for critical ArgoCD components
+    echo "Waiting for ArgoCD components..."
+    kubectl wait --for=condition=available --timeout=300s deployment/argocd-server -n argocd
+    kubectl wait --for=condition=available --timeout=300s deployment/argocd-repo-server -n argocd
+    kubectl wait --for=condition=available --timeout=300s deployment/argocd-applicationset-controller -n argocd
+    kubectl wait --for=condition=available --timeout=300s deployment/argocd-redis -n argocd
+fi
 
 echo "Bootstrap completed successfully!"

@@ -1,0 +1,39 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: $(name)-http-route-redirect
+  namespace: $(namespace)
+spec:
+  parentRefs:
+    - name: $(name)-gateway
+      namespace: $(namespace)
+      sectionName: http
+  hostnames:
+    - "$(hostname)"
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: $(name)-http-route
+  namespace: $(namespace)
+spec:
+  parentRefs:
+    - name: $(name)-gateway
+      namespace: $(namespace)
+      sectionName: https
+  hostnames:
+    - "$(hostname)"
+  rules:
+    - backendRefs:
+        - name: $(service)
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: / 
