@@ -2,8 +2,8 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: vault-ca
-  namespace: vault-infra
+  name: openbao-ca
+  namespace: openbao-infra
   annotations:
     cert-manager.io/approve: "true"
     cert-manager.io/auto-approve: "true"
@@ -12,7 +12,7 @@ metadata:
 spec:
   isCA: true
   commonName: OpenBao Root CA
-  secretName: vault-ca-tls
+  secretName: openbao-ca-tls
   privateKey:
     algorithm: ECDSA
     size: 384
@@ -41,12 +41,12 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: openbao-issuer
-  namespace: vault-infra
+  namespace: openbao-infra
 spec:
   ca:
     secretName: openbao-ca-tls
 ---
-# Create Vault Server Certificate
+# Create openbao Server Certificate
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
