@@ -12,6 +12,6 @@ helmCharts:
     includeCRDs: true
     releaseName: openbao
     namespace: openbao-infra
-    version: 0.6.0
+    version: 0.4.0
     repo: https://openbao.github.io/openbao-helm
     valuesFile: config/values.yaml
