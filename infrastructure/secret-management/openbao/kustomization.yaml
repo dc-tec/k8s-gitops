@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - base/namespace.yaml
+  - base/gateway.yaml
+  - base/certificate.yaml
+  - config/secrets/pkcs12-secret.yaml
+
+helmCharts:
+  - name: vault
+    includeCRDs: true
+    releaseName: openbao
+    namespace: openbao-infra
+    version: 0.6.0
+    repo: https://openbao.github.io/openbao-helm
+    valuesFile: config/values.yaml

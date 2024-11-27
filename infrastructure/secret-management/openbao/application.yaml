@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openbao
+  namespace: argocd
+  labels:
+    name: openbao
+spec:
+  project: infrastructure
+  source:
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
+    targetRevision: feature/deploy-openbao
+    path: infrastructure/secret-management/openbao
+  destination:
+    namespace: openbao-infra
+    server: https://kubernetes.default.svc
+  ignoreDifferences:
+  - group: admissionregistration.k8s.io
+    kind: MutatingWebhookConfiguration
+    name: vault-agent-injector-cfg
+    jsonPointers:
+    - /webhooks/0/clientConfig/caBundle
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
