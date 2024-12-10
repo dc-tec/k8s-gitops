@@ -9,7 +9,7 @@ spec:
   project: infrastructure
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
-    targetRevision: feature/deploy-openbao
+    targetRevision: main
     path: infrastructure/secret-management/openbao
   destination:
     namespace: openbao-infra
