@@ -44,9 +44,9 @@ server:
   # Set the extra volumes for the vault server these will be exposed in the path /vault/userconfig/<name>
   extraVolumes:
     - type: secret
-      name: vault-internal-tls
+      name: openbao-internal-tls
     - type: secret
-      name: vault-ca-tls
+      name: openbao-ca-tls
     #- type: secret
     #  name: vault-unseal
 
