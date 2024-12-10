@@ -115,7 +115,7 @@ server:
         
           retry_join {
             leader_api_addr         = "https://openbao-0.openbao-internal:8200"
-            leader_tls_servername   = "vault"
+            leader_tls_servername   = "openbao"
             leader_ca_cert_file     = "/openbao/userconfig/openbao-ca-tls/ca.crt"
             leader_client_cert_file = "/openbao/userconfig/openbao-internal-tls/tls.crt"
             leader_client_key_file  = "/openbao/userconfig/openbao-internal-tls/tls.key"
@@ -123,7 +123,7 @@ server:
     
           retry_join {
             leader_api_addr         = "https://openbao-1.openbao-internal:8200"
-            leader_tls_servername   = "vault"
+            leader_tls_servername   = "openbao"
             leader_ca_cert_file     = "/openbao/userconfig/openbao-ca-tls/ca.crt"
             leader_client_cert_file = "/openbao/userconfig/openbao-internal-tls/tls.crt"
             leader_client_key_file  = "/openbao/userconfig/openbao-internal-tls/tls.key"
@@ -131,7 +131,7 @@ server:
     
           retry_join {
             leader_api_addr         = "https://openbao-2.openbao-internal:8200"
-            leader_tls_servername   = "vault"
+            leader_tls_servername   = "openbao"
             leader_ca_cert_file     = "/openbao/userconfig/openbao-ca-tls/ca.crt"
             leader_client_cert_file = "/openbao/userconfig/openbao-internal-tls/tls.crt"
             leader_client_key_file  = "/openbao/userconfig/openbao-internal-tls/tls.key"
