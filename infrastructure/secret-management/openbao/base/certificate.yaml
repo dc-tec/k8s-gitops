@@ -29,7 +29,7 @@ spec:
     pkcs12:
       create: true
       passwordSecretRef:
-        name: pkcs12-password
+        name: pkcs12-secret
         key: password
   issuerRef:
     name: cert-manager-self
