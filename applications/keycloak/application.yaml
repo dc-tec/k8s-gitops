@@ -9,7 +9,7 @@ spec:
   project: applications
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
-    targetRevision: feat/deploy-keycloak
+    targetRevision: main
     path: applications/keycloak
   destination:
     namespace: keycloak
