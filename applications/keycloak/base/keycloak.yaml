@@ -1,0 +1,21 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak-dct
+spec:
+  instances: 1
+  db:
+    vendor: postgres
+    host: keycloak-db
+    usernameSecret:
+      name: keycloak-db
+      key: username
+    passwordSecret:
+      name: keycloak-db
+      key: password
+  http:
+    tlsSecret: keycloak-tls
+  hostname:
+    hostname: keycloak.decort.tech
+  proxy:
+    headers: xforwarded

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak
+  namespace: argocd
+  labels:
+    name: keycloak
+spec:
+  project: applications
+  source:
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
+    targetRevision: feat/deploy-keycloak
+    path: applications/keycloak
+  destination:
+    namespace: keycloak
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
