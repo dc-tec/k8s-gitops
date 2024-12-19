@@ -62,7 +62,7 @@ spec:
   rules:
     - backendRefs:
         - name: keycloak-dct-service
-          port: 8443
+          port: 8080
       matches:
         - path:
             type: PathPrefix

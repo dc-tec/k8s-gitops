@@ -17,7 +17,11 @@ spec:
       key: password
   http:
     tlsSecret: keycloak-tls
+    httpEnabled: true
   hostname:
     hostname: keycloak.decort.tech
+    strict: false
+    strictBackchannel: false
   proxy:
     headers: xforwarded
+    termination: reencrypt
