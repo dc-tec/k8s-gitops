@@ -37,17 +37,6 @@ env := "tst"
 @delete-tst:
     cd ./clusters/ && terraform destroy -var-file=env/tst/terraform.tfvars -auto-approve
 
-# Bootstrap cluster with ArgoCD and core components
-@bootstrap: (_check-prereqs)
-    ./tools/bootstrap.sh
-
-# Merge configuration files
 @merge-configs:
     ./tools/config-merge.sh
-
-# Private recipe to check prerequisites
-@_check-prereqs:
-    command -v kubectl >/dev/null 2>&1 || { echo "kubectl is required but not installed"; exit 1; }
-    command -v sops >/dev/null 2>&1 || { echo "sops is required but not installed"; exit 1; }
-    test -n "$$SOPS_AGE_KEY_FILE" || { echo "SOPS_AGE_KEY_FILE must be set"; exit 1; }
 
