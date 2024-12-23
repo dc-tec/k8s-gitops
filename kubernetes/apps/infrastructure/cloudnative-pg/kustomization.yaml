@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: cnpg-system
+
+resources:
+  - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/v1.24.1/releases/cnpg-1.23.2.yaml

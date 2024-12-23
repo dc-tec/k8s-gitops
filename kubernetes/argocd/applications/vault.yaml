@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+  labels:
+    name: vault
+spec:
+  project: infrastructure
+  source:
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
+    targetRevision: main
+    path: kubernetes/apps/infrastructure/vault
+  destination:
+    namespace: vault-infra
+    server: https://kubernetes.default.svc
+  ignoreDifferences:
+  - group: admissionregistration.k8s.io
+    kind: MutatingWebhookConfiguration
+    name: vault-agent-injector-cfg
+    jsonPointers:
+    - /webhooks/0/clientConfig/caBundle
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

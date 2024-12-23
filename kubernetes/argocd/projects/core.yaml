@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: core
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  destinations:
+    - name: in-cluster
+      namespace: "*"
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - git@github.com/dc-tec/k8s-gitops.git
+
+status: {}

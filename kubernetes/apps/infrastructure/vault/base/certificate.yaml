@@ -1,0 +1,92 @@
+# Create Root CA Certificate
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vault-ca
+  namespace: vault-infra
+  annotations:
+    cert-manager.io/approve: "true"
+    cert-manager.io/auto-approve: "true"
+    cert-manager.io/cluster-issuer: cert-manager-self
+    cert-manager.io/issuer-group: cert-manager.io
+spec:
+  isCA: true
+  commonName: Vault Root CA
+  secretName: vault-ca-tls
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
+  duration: 87600h # 10 years
+  renewBefore: 8760h # 1 year
+  subject:
+    organizations:
+      - deCort.tech
+    countries:
+      - NL
+  keystores:
+    pkcs12:
+      create: true
+      passwordSecretRef:
+        name: pkcs12-password
+        key: password
+  issuerRef:
+    name: cert-manager-self
+    kind: ClusterIssuer
+    #group: cert-manager.io
+---
+# Create CA Issuer using the Root CA
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+  namespace: vault-infra
+spec:
+  ca:
+    secretName: vault-ca-tls
+---
+# Create Vault Server Certificate
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vault-internal-tls
+  namespace: vault-infra
+  annotations:
+    cert-manager.io/approve: "true"
+    cert-manager.io/auto-approve: "true"
+spec:
+  secretName: vault-internal-tls
+  duration: 720h # 30 days
+  renewBefore: 360h # 15 days
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    encoding: PKCS8
+    rotationPolicy: Always
+  subject:
+    organizations:
+      - deCort.tech
+    countries:
+      - NL
+  commonName: system:node:*.vault-infra.svc.cluster.local
+  dnsNames:
+    - vault.vault-infra.svc.cluster.local
+    - vault.decort.tech
+    - vault.vault-infra.svc
+    - vault-infra
+    - vault
+    - "*.vault-internal"
+    - "*.vault-internal.vault-infra.svc.cluster.local"
+    - "*.vault-internal.vault-infra.svc"
+  ipAddresses:
+    - "127.0.0.1"
+  usages:
+    - server auth
+    - client auth
+    - digital signature
+    - key encipherment
+  issuerRef:
+    name: vault-issuer
+    kind: Issuer
+    group: cert-manager.io

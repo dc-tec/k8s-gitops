@@ -1,0 +1,11 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: cert-manager-self
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/managed-by: manual
+    app.kubernetes.io/component: cluster-infrastructure
+spec:
+  selfSigned: {}
