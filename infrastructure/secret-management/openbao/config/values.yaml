@@ -19,7 +19,7 @@ server:
   image:
     registry: "quay.io"
     repository: "openbao/openbao"
-    tag: "2.0.2"
+    tag: "2.1.0"
   
   # Set the resources for the vault server
   resources:
