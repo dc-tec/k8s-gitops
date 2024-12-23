@@ -6,8 +6,9 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.2/manifests/install.yaml
   - base/gateway.yaml
   - base/namespace.yaml
-  - ../../argocd/projects/applications.yaml
+  - ../../argocd/projects/core.yaml
   - ../../argocd/projects/infrastructure.yaml
+  - ../../argocd/projects/workloads.yaml
   - ../../argocd/repositories/k8s-gitops.yaml
 
 patches:
