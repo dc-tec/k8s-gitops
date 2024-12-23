@@ -11,6 +11,9 @@ spec:
     - repoURL: git@github.com/dc-tec/k8s-gitops.git
       targetRevision: main
       path: kubernetes/apps/core/argocd
+    - repoURL: git@github.com/dc-tec/k8s-gitops.git
+      targetRevision: main
+      path: kubernetes/argocd
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
