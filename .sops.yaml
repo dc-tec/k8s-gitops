@@ -1,8 +1,0 @@
-keys:
-  - &dc-tec age1rv4ncav6xedaxm2kchn6f2j7gkseemtz3ylfm8xr20z638yp9gssukv0zf
-
-creation_rules:
-  - path_regex: infra/bootstrap/sealed-secrets/key/sealed-secrets-key-plain.yaml$
-    key_groups:
-      - age:
-          - *dc-tec
