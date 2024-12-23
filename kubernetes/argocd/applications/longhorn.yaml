@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
     targetRevision: main
-    path: infrastructure/longhorn
+    path: kubernetes/apps/infrastructure/longhorn
   destination:
     namespace: longhorn-system
     server: https://kubernetes.default.svc

@@ -6,11 +6,11 @@ metadata:
   labels:
     name: openbao
 spec:
-  project: workload
+  project: workloads
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
     targetRevision: main
-    path: kubernetes/apps/workload/openbao
+    path: kubernetes/apps/workloads/openbao
   destination:
     namespace: openbao-infra
     server: https://kubernetes.default.svc
