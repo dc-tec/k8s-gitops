@@ -18,7 +18,7 @@ server:
   # Set the image for the vault server
   image:
     repository: "hashicorp/vault"
-    tag: "1.18.1"
+    tag: "1.18.3"
   
   # Set the resources for the vault server
   resources:

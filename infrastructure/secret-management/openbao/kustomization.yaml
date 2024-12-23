@@ -5,15 +5,13 @@ resources:
   - base/namespace.yaml
   - base/gateway.yaml
   - base/certificate.yaml
-  - base/vault-approver-rbac.yaml
   - config/secrets/pkcs12-secret.yaml
-  - config/secrets/vault-unseal.yaml
 
 helmCharts:
-  - name: vault
+  - name: openbao
     includeCRDs: true
-    releaseName: vault
-    namespace: vault-infra
-    version: 0.29.1
-    repo: https://helm.releases.hashicorp.com
+    releaseName: openbao
+    namespace: openbao-infra
+    version: 0.7.0
+    repo: https://openbao.github.io/openbao-helm
     valuesFile: config/values.yaml
