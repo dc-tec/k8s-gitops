@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+  labels:
+    name: vaultwarden
+spec:
+  project: workloads
+  source:
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
+    targetRevision: main
+    path: kubernetes/apps/workloads/vaultwarden
+  destination:
+    namespace: vaultwarden-app
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

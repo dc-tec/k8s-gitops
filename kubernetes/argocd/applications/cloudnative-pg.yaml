@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudnative-pg
+  namespace: argocd
+  labels:
+    name: cloudnative-pg
+spec:
+  project: infrastructure
+  source:
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
+    targetRevision: main
+    path: kubernetes/apps/infrastructure/cloudnative-pg
+  destination:
+    namespace: cnpg-system
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Replace=true

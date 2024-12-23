@@ -1,0 +1,59 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: openbao-gateway
+  namespace: openbao-infra
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - name: http
+      hostname: bao.decort.tech
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      hostname: bao.decort.tech
+      port: 443
+      protocol: TLS
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Passthrough
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: openbao-route-redirect
+  namespace: openbao-infra
+spec:
+  parentRefs:
+    - name: vault-gateway
+      sectionName: http
+  hostnames:
+    - "bao.decort.tech"
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: openbao-route
+  namespace: openbao-infra
+spec:
+  parentRefs:
+    - name: openbao-gateway
+      sectionName: https
+  hostnames:
+    - "bao.decort.tech"
+  rules:
+    - backendRefs:
+        - name: openbao-active
+          port: 8200
+
