@@ -44,7 +44,22 @@ data "talos_machine_configuration" "control_node" {
           },
         ]
       }
-    })
+    }),
+    yamlencode({
+      machine = {
+        features = {
+          kubernetesTalosAPIAccess = {
+            enabled = true
+            allowedRoles = [
+              "os:etcd:backup",
+            ]
+            allowedKubernetesNamespaces = [
+              "default",
+            ]
+          }
+        }
+      }
+    }),
   ]
 }
 

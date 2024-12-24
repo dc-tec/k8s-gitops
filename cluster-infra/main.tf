@@ -10,10 +10,10 @@ terraform {
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "2.16.1"
+      version = "2.17.0"
     }
   }
-  required_version = "1.9.8"
+  required_version = "1.10.3"
 
   backend "azurerm" {
     resource_group_name  = "rg-dct-prd-westeu"
