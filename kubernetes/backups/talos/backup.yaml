@@ -1,0 +1,80 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: talos-backup
+spec:
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  schedule: "0/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: talos-backup
+            image: ghcr.io/siderolabs/talos-backup:v0.1.0-beta.2-1-g9ccc125
+            workingDir: /tmp
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: talos-bucket-secrets
+                    key: AWS_ACCESS_KEY_ID
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: talos-bucket-secrets
+                    key: AWS_SECRET_ACCESS_KEY
+              - name: AWS_REGION
+                value: us-west-000
+              - name: CUSTOM_S3_ENDPOINT
+                value: https://s3.us-west-000.backblazeb2.com
+              - name: BUCKET
+                value: talos-backups-prd-dct-gitops
+              - name: CLUSTER_NAME
+                value: "prd-dct-gitops"
+              - name: AGE_X25519_PUBLIC_KEY
+                value: "age1rv4ncav6xedaxm2kchn6f2j7gkseemtz3ylfm8xr20z638yp9gssukv0zf"
+              - name: USE_PATH_STYLE
+                value: "true"
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
+            command:
+            - /talos-backup
+            volumeMounts:
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/run/secrets/talos.dev
+              name: talos-secrets
+          restartPolicy: OnFailure
+          volumes:
+          - emptyDir: {}
+            name: tmp
+          - name: talos-secrets
+            secret:
+              secretName: talos-backup-secrets
+---
+apiVersion: talos.dev/v1alpha1
+kind: ServiceAccount
+metadata:
+    name: talos-backup-secrets
+spec:
+    roles:
+        - os:etcd:backup
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: talos-backup-secrets
+  annotations:
+    kubernetes.io/service-account.name: talos-backup-secrets
+---
