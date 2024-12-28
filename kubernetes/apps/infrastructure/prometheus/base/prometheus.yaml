@@ -1,0 +1,30 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  replicas: 1  # Single replica for homelab
+  version: v2.45.0
+  serviceAccountName: prometheus
+  securityContext:
+    fsGroup: 2000
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceMonitorSelector: {}
+  podMonitorSelector: {}
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 10Gi
+  retention: 7d
+  scrapeInterval: 30s
