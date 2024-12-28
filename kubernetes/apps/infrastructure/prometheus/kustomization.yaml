@@ -9,3 +9,4 @@ resources:
   - base/gateway.yaml
   - base/prometheus.yaml
   - base/servicemonitor.yaml
+  - base/service.yaml

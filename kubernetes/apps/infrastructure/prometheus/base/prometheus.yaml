@@ -4,15 +4,15 @@ metadata:
   name: prometheus
   namespace: monitoring
 spec:
-  replicas: 1  # Single replica for homelab
+  replicas: 1
   version: v2.45.0
   serviceAccountName: prometheus
   securityContext:
     fsGroup: 2000
     runAsNonRoot: true
     runAsUser: 1000
-  serviceMonitorSelector: {}
-  podMonitorSelector: {}
+  podMonitorSelector: {}  # Empty map to select all PodMonitors
+  serviceMonitorSelector: {}  # Empty map to select all ServiceMonitors
   resources:
     requests:
       cpu: 200m
@@ -28,3 +28,11 @@ spec:
             storage: 10Gi
   retention: 7d
   scrapeInterval: 30s
+  serviceMonitorNamespaceSelector: {}  # Allow monitoring all namespaces
+  additionalScrapeConfigs: {}  # Empty but required
+  alerting:
+    alertmanagers:
+      - namespace: monitoring
+        name: alertmanager-operated
+        port: web
+  ruleSelector: {}  # Empty map to select all PrometheusRules
