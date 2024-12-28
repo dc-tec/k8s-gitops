@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - github.com/prometheus-operator/prometheus-operator/bundle.yaml?ref=v0.79.2
+  - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/refs/tags/v0.79.2/bundle.yaml
   - base/rbac.yaml
   - base/gateway.yaml
   - base/prometheus.yaml
