@@ -62,7 +62,9 @@ metadata:
   namespace: monitoring
 spec:
   parentRefs:
-    - name: alertmanager-gateway
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: alertmanager-gateway
       namespace: monitoring
       sectionName: https
   hostnames:
