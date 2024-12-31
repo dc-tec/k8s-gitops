@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: alertmanager
+  namespace: monitoring
+  labels:
+    app: alertmanager
+spec:
+  endpoints:
+    - interval: 30s
+      port: web
+  selector:
+    matchLabels:
+      app: alertmanager

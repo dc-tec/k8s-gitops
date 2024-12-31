@@ -10,6 +10,9 @@ spec:
           - name: prometheus
             path: kubernetes/apps/infrastructure/prometheus
             namespace: monitoring
+          - name: alertmanager
+            path: kubernetes/apps/infrastructure/alertmanager
+            namespace: monitoring
   template:
     metadata:
       name: '{{name}}'
