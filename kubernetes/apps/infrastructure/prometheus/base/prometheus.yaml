@@ -36,3 +36,4 @@ spec:
             storage: 10Gi
   retention: 7d
   scrapeInterval: 30s
+  enableAdminAPI: true
