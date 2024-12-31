@@ -61,7 +61,7 @@ spec:
     - "prometheus.decort.tech"
   rules:
     - backendRefs:
-        - name: prometheus
+        - name: prometheus-operated
           port: 9090
       matches:
         - path:
