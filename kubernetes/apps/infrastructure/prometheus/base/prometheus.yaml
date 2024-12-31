@@ -37,3 +37,6 @@ spec:
   retention: 7d
   scrapeInterval: 30s
   enableAdminAPI: true
+  podMetadata:
+    labels:
+      app: prometheus

@@ -61,8 +61,10 @@ spec:
     - "prometheus.decort.tech"
   rules:
     - backendRefs:
-        - name: prometheus-operated
+        - name: prometheus
           port: 9090
+          kind: Service
+          weight: 1
       matches:
         - path:
             type: PathPrefix
