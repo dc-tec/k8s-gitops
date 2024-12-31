@@ -3,6 +3,8 @@ kind: Prometheus
 metadata:
   name: prometheus
   namespace: monitoring
+  labels:
+    app: prometheus
 spec:
   replicas: 1
   version: v2.45.0
