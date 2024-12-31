@@ -11,8 +11,14 @@ spec:
     fsGroup: 2000
     runAsNonRoot: true
     runAsUser: 1000
-  podMonitorSelector: {}  # Empty map to select all PodMonitors
-  serviceMonitorSelector: {}  # Empty map to select all ServiceMonitors
+  podMonitorSelector:
+    matchLabels: {}  # Empty but defined selector to select all PodMonitors
+  serviceMonitorSelector:
+    matchLabels: {}  # Empty but defined selector to select all ServiceMonitors
+  serviceMonitorNamespaceSelector:
+    matchLabels: {}  # Empty but defined selector to monitor all namespaces
+  ruleSelector:
+    matchLabels: {}  # Empty but defined selector to select all PrometheusRules
   resources:
     requests:
       cpu: 200m
@@ -28,5 +34,3 @@ spec:
             storage: 10Gi
   retention: 7d
   scrapeInterval: 30s
-  serviceMonitorNamespaceSelector: {}  # Allow monitoring all namespaces
-  ruleSelector: {}  # Empty map to select all PrometheusRules
