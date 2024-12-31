@@ -5,7 +5,7 @@ metadata:
   name: prometheus-gateway
   namespace: monitoring
   annotations:
-    cert-manager.io/cluster-issuer: cert-manager-staging
+    cert-manager.io/cluster-issuer: cert-manager-prd
 spec:
   gatewayClassName: cilium
   listeners:
