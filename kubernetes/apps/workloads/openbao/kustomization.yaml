@@ -5,6 +5,7 @@ resources:
   - base/namespace.yaml
   - base/gateway.yaml
   - base/certificate.yaml
+  - base/serviceaccount.yaml
   - config/secrets/pkcs12-secret.yaml
 
 helmCharts:
