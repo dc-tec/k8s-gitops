@@ -6,7 +6,9 @@ resources:
   - base/gateway.yaml
   - base/certificate.yaml
   - base/serviceaccount.yaml
+  - base/snapshot.yaml
   - config/secrets/pkcs12-secret.yaml
+  - config/secrets/openbao-backup-secrets.yaml
 
 helmCharts:
   - name: openbao
