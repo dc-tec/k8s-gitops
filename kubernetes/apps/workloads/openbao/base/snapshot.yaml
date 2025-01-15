@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: openbao-backup-sa
+  namespace: openbao-infra
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: openbao-backup-role
+  namespace: openbao-infra
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/exec"]
+    verbs: ["get", "list", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: openbao-backup-rolebinding
+  namespace: openbao-infra
+subjects:
+  - kind: ServiceAccount
+    name: openbao-backup-sa
+    namespace: openbao-infra
+roleRef:
+  kind: Role
+  name: openbao-backup-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: openbao-backup
+  namespace: openbao-infra
+spec:
+  schedule: "0 1 * * *"  # Daily at 1 AM UTC
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: openbao-backup-sa
+          containers:
+          - name: openbao-backup
+            image: registry.gitlab.com/dc-tec/openbao-backup:latest
+            imagePullPolicy: Always
+            env:
+            - name: OPENBAO_ADDRESS
+              value: "https://bao.decort.tech"
+            - name: OPENBAO_ROLE
+              value: "openbao-admin"
+            - name: OPENBAO_AUTH_MOUNT_PATH
+              value: "kubernetes"
+            - name: BUCKET_NAME
+              value: openbao-backup
+            - name: REGION
+              value: "us-west-000"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: openbao-backup-secrets
+                  key: aws-access-key
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openbao-backup-secrets
+                  key: aws-secret-key
+            - name: CUSTOM_S3_ENDPOINT
+              value: https://s3.us-west-000.backblazeb2.com
+            - name: OPENBAO_INSECURE_SKIP_VERIFY
+              value: "true"
+          restartPolicy: OnFailure
