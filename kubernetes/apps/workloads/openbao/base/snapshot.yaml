@@ -43,7 +43,7 @@ spec:
     spec:
       template:
         spec:
-          serviceAccountName: openbao-backup-sa
+          serviceAccountName: openbao-auth
           containers:
           - name: openbao-backup
             image: registry.gitlab.com/dc-tec/openbao-backup:latest
@@ -63,14 +63,24 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: openbao-backup-secrets
-                  key: aws-access-key
+                  key: AWS_ACCESS_KEY_ID
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   name: openbao-backup-secrets
-                  key: aws-secret-key
+                  key: AWS_SECRET_ACCESS_KEY
             - name: CUSTOM_S3_ENDPOINT
               value: https://s3.us-west-000.backblazeb2.com
             - name: OPENBAO_INSECURE_SKIP_VERIFY
               value: "true"
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
           restartPolicy: OnFailure
