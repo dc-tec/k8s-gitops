@@ -63,12 +63,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: openbao-backup-secrets
-                  key: aws-access-key
+                  key: AWS_ACCESS_KEY_ID
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   name: openbao-backup-secrets
-                  key: aws-secret-key
+                  key: AWS_SECRET_ACCESS_KEY
             - name: CUSTOM_S3_ENDPOINT
               value: https://s3.us-west-000.backblazeb2.com
             - name: OPENBAO_INSECURE_SKIP_VERIFY

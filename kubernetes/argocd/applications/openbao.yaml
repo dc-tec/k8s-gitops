@@ -9,7 +9,7 @@ spec:
   project: workloads
   source:
     repoURL: git@github.com/dc-tec/k8s-gitops.git
-    targetRevision: main
+    targetRevision: fix/openbao-cron
     path: kubernetes/apps/workloads/openbao
   destination:
     namespace: openbao-infra
