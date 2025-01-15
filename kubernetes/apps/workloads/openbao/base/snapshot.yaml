@@ -73,4 +73,14 @@ spec:
               value: https://s3.us-west-000.backblazeb2.com
             - name: OPENBAO_INSECURE_SKIP_VERIFY
               value: "true"
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
           restartPolicy: OnFailure
