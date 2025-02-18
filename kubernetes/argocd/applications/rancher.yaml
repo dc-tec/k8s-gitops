@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher
+  namespace: argocd
+  labels:
+    name: rancher
+spec:
+  project: infrastructure
+  source:
+    repoURL: git@github.com/dc-tec/k8s-gitops.git
+    targetRevision: feat/deploy-rancher
+    path: kubernetes/apps/infrastructure/rancher
+  destination:
+    namespace: cattle-system
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Replace=true
