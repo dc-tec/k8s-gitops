@@ -19,4 +19,5 @@ resources:
     cpu: "250m"
     memory: "512Mi"
 
-ingress: false
+ingress:
+  enabled: false
