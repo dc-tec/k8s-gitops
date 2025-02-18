@@ -40,9 +40,6 @@ containerSecurityContext:
   seccompProfile:
     type: RuntimeDefault
 
-# Bootstrap password
-bootstrapPassword: "admin"
-
 # Disable ingress as we're using external ingress
 ingress:
   enabled: false
