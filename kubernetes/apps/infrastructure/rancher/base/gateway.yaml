@@ -61,8 +61,8 @@ spec:
     - "rancher.decort.tech"
   rules:
     - backendRefs:
-        - name: rancher-service
-          port: 8080
+        - name: rancher-stable
+          port: 80
       matches:
         - path:
             type: PathPrefix
