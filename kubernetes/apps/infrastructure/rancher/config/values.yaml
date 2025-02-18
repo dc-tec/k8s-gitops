@@ -5,7 +5,7 @@ tls: "external"
 hostname: "rancher.decort.tech"
 
 # Replica count for high availability
-replicas: 3
+replicas: 1
 
 # Anti-affinity for HA deployment
 antiAffinity: "preferred"
