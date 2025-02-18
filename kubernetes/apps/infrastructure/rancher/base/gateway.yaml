@@ -1,0 +1,69 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: rancher-gateway
+  namespace: cattle-system
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-prd
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - name: http
+      hostname: rancher.decort.tech
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      hostname: rancher.decort.tech
+      port: 443
+      protocol: HTTPS
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: rancher-tls
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: rancher-route-redirect
+  namespace: cattle-system
+spec:
+  parentRefs:
+    - name: rancher-gateway
+      namespace: cattle-system
+      sectionName: http
+  hostnames:
+    - "rancher.decort.tech"
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: rancher-route
+  namespace: cattle-system
+spec:
+  parentRefs:
+    - name: rancher-gateway
+      namespace: cattle-system
+      sectionName: https
+  hostnames:
+    - "rancher.decort.tech"
+  rules:
+    - backendRefs:
+        - name: rancher-stable
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

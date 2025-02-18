@@ -1,0 +1,56 @@
+# External TLS termination configuration
+tls: "external"
+
+# Rancher Server hostname
+hostname: "rancher.decort.tech"
+
+# Single replica for test environment
+replicas: 1
+
+# Resources configuration
+resources:
+  limits:
+    cpu: "1000m"
+    memory: "1Gi"
+  requests:
+    cpu: "250m"
+    memory: "512Mi"
+
+# Global security configurations
+global:
+  cattle:
+    psp:
+      enabled: false
+
+# Pod security configurations
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+# Container security configurations
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+  seccompProfile:
+    type: RuntimeDefault
+
+# Disable ingress as we're using external ingress
+ingress:
+  enabled: false
+
+# Disable features not needed in test environment
+features: ""
+
+# Disable audit logging for test environment
+auditLog:
+  enabled: false
+
+# Disable monitoring for test environment
+monitoring:
+  enabled: false
