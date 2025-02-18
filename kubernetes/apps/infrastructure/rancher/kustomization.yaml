@@ -10,6 +10,6 @@ helmCharts:
     includeCRDs: true
     releaseName: rancher-stable
     namespace: cattle-system
-    version: 0.29.1
+    version: 2.10.2
     repo: https://releases.rancher.com/server-charts/stable
     valuesFile: config/values.yaml
