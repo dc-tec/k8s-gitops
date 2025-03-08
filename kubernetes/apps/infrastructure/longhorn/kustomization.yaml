@@ -3,7 +3,7 @@ kind: Kustomization
 
 namespace: longhorn-system
 resources:
-  - https://raw.githubusercontent.com/longhorn/longhorn/v1.7.2/deploy/longhorn.yaml
+  - https://raw.githubusercontent.com/longhorn/longhorn/v1.8.1/deploy/longhorn.yaml
   - base/gateway.yaml
 
 patches:
